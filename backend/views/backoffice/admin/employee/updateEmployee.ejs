@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Admin Update Employee</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/stylesheets/update/updateEmployee.css">
+	<script defer src="/javascripts/update.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+	<% if(employee) { %>
+	<div class="form">
+		<form action="/backoffice/admin/employee/update" method="post" enctype="multipart/form-data">
+			<div class="subtitle">Editing <%=employee.name%></div>
+			<div class="input-container ic1">
+				<input name="username" class="input" type="text" placeholder=" "
+				value="<%= locals.employee.username %>" readonly>
+				<div class="cut"></div>
+				<label for="username" class="placeholder">Username</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="email" class="input" type="email" placeholder=" "
+				value="<%= locals.employee.email %>" required oninput="updatedValue()"
+				minlength="2" maxlength="100" pattern="[a-zA-z0-9]+@+((.+)[a-zA-z0-9]){1,3}"/>
+				<div class="cut cut-short"></div>
+				<label for="email" class="placeholder">Email</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="name" class="input" type="text" placeholder=" "
+				value="<%= locals.employee.name %>" required oninput="updatedValue()"
+				minlength="2" maxlength="50" pattern="[a-zA-Z0-9].+" />
+				<div class="cut cut-short"></div>
+				<label for="name" class="placeholder">Name</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="category" class="input" type="text" placeholder=" "
+				value="<%= locals.employee.category %>" readonly />
+				<div class="cut"></div>
+				<label for="category" class="placeholder">Category</label>
+			</div>
+			<button type="text" class="submit">Update</button>
+		</form>
+		<form action="/backoffice/admin/employee/update/password/<%= locals.employee.id %>" 
+			method="get" enctype="multipart/form-data">
+			<button type="text" class="updatePassword">Change Password</button>
+		</form>
+		<form action="/backoffice/admin/employee" method="get">
+			<button type="text" class="back">Back</button>
+		</form>
+	</div>
+	<% } %>
+  </body>
+</html>

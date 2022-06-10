@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Admin Manage Discount</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/stylesheets/manage/manage.css">
+	<script defer src="/javascripts/update.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+	<% if(locals.discount) { %>
+	<div class="form">
+		<form action="/backoffice/admin/manageDiscount" method="post" enctype="multipart/form-data">
+			<div class="subtitle">Discount Management (Percentages)</div>
+			<div class="input-container ic2">
+				<input name="discountPerSale" class="input" type="text" placeholder=" "
+				value="<%= locals.discount.discountPerSale %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut cut-long"></div>
+				<label for="discountPerSale" class="placeholder">Discount per sale</label>
+				<span class="info">
+				Discount applied to a sale 
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="discountPromotion" class="input" type="text" placeholder=" "
+				value="<%= locals.discount.discountPromotion %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut cut-long"></div>
+				<label for="discountPromotion" class="placeholder">Discount promotion</label>
+				<span class="info">
+				Discount applied when a promotion is active
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<select class="input" name="activePromotion" required>
+					<option value="true" <% if(locals.discount.activePromotion) { %>selected<% } %>>
+						Active
+					</option>
+					<option value="false" <% if(!locals.discount.activePromotion) { %>selected<% } %>>
+						Inactive
+					</option>
+				</select>
+				<div class="cut cut-long"></div>
+				<label for="activePromotion" class="placeholder">Promotion Active</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="perInfantil" class="input" type="text" placeholder=" "
+				value="<%= locals.discount.perInfantil %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut"></div>
+				<label for="perInfantil" class="placeholder">Infantil</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="perJuvenil" class="input" type="text" placeholder=" "
+				value="<%= locals.discount.perJuvenil %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut"></div>
+				<label for="perJuvenil" class="placeholder">Juvenil</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="perAdulto" class="input" type="text" placeholder=" "
+				value="<%= locals.discount.perAdulto %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut"></div>
+				<label for="perAdulto" class="placeholder">Adulto</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="perSenior" class="input" type="text" placeholder=" "
+				value="<%= locals.discount.perSenior %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut"></div>
+				<label for="perSenior" class="placeholder">Senior</label>
+			</div>
+			<button type="text" class="submit">Update</button>
+		</form>
+		<form action="/backoffice/admin/" method="get">
+			<button type="text" class="back">Back</button>
+		</form>
+	</div>
+	<% } else { %>
+		<h1>Some error occured, could not load point management</h1>
+	<% } %>
+  </body>
+</html>

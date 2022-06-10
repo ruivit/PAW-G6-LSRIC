@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/portals/backoffice.css">
+  <link rel="stylesheet" href="/stylesheets/listing/tableListingBackoffice.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <title>Employee Sale History</title>
+</head>
+<body>
+  <ul>
+    <li><a class="importantbutton" href="/backoffice/employee">Back</a></li>
+    <li><a href="/backoffice/employee/sales/makeSale">Make Sale</a></li>
+    <li><a>
+      <form action="/backoffice/employee/sales" method="get">
+        <input type="text" name="search" placeholder="Search">
+        <input type="submit" value="Search">
+      </form>
+    </a></li>
+    <li style="float:right">
+      <a class="importantbutton"
+      href="/backoffice/logout">Logout</a>
+    </li>
+  </ul>
+  <br>
+  <div class="container">
+  <% if(sales.length>0) { %>
+    <table class="table table-hover table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Client Username</th>
+          <th scope="col">Books</th>
+          <th scope="col">Total</th>
+          <th scope="col">Shipping</th>
+          <th scope="col">Gained Points</th>
+          <th scope="col">Date</th>
+          <th scope="col">Online</th>
+          <th scope="col">Employee Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i=0; i<sales.length;i++) { %>
+          <tr>
+            <td data-label="Client Username"> <%=sales[i].clientUsername%> </td>
+            <td data-label="Books">
+              <% for(var j=0; j<sales[i].books.length; j++) { %>
+                - <%=sales[i].books[j].title%>
+                <br>
+              <% } %>
+            </td>
+            <td data-label="Total"> <%=sales[i].total%> </td>
+            <td data-label="Shipping"> <%=sales[i].shipping%> </td>
+            <td data-label="Gained Points"> <%=sales[i].gainedPoints%> </td>
+            <td data-label="Date"> <%=sales[i].dateString%> </td>
+            <td data-label="Online"> <%=sales[i].online%> </td>
+            <td data-label="Employee Username"> <%=sales[i].employeeUsername%> </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <br>
+    <table>
+      <tr>
+        <td>
+          <!-- check if there more than 1 page AND we are not in the first page -->
+          <% if(totalPages>1 && currentPage>1) { %>
+            <a href="?page=<%= (currentPage-1)%>&search=<%=query%>">
+              <i class="material-icons">chevron_left</i>
+            </a>
+          <% } %>
+        </td>
+        <td>
+          <% for(var i=1; i<=totalPages; i++) { %>
+            <a href="?page=<%= i %>&search=<%=query%>" class="<% if(i==currentPage) { %>active<% } %>">
+              <%= i %>
+            </a>
+          <% } %>
+        </td>
+        <td>
+        <!-- check if its the last page -->
+        <% if(totalPages>1 && totalPages>currentPage) { %>
+          <a href="?page=<%= (currentPage+1)%>&search=<%=query%>">
+            <i class="material-icons">chevron_right</i>
+          </a>
+        <% } %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <% } else { %>
+    <% if(!locals.message) { %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">No Sales were found</th>
+        </tr>
+      </thead>
+    </table>
+    <% } %>
+  <% } %>
+  <% if(locals.message) { %>
+    <div class="message">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"><%= message %></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  <% } %>
+</body>
+</html>

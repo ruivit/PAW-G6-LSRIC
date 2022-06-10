@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/portals/backoffice.css">
+  <link rel="stylesheet" href="/stylesheets/listing/tableListingBackoffice.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <title>Employee Profile</title>
+</head>
+<body>
+  <ul>
+    <li><a class="importantbutton" href="/backoffice/employee">Back</a></li>
+    <li><a href="/backoffice/employee/profile/update">Update Profile</a></li>
+    <li style="float:right">
+      <a class="importantbutton"
+      href="/backoffice/logout">Logout</a>
+    </li>
+  </ul>
+  <br>
+    <% if(employee) { %>
+      <table class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td data-label="username"> <%=employee.username%></a></td>
+              <td data-label="email"> <%=employee.email%></a></td>
+              <td data-label="name"> <%=employee.name%></a></td>
+              <td data-label="category"> <%=employee.category%></a></td>
+              <td data-label="address"> <%=employee.address%></a></td>
+            </tr>
+        </tbody>
+      </table>
+    <% } else { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No employee were found</th>
+          </tr>
+        </thead>
+      </table>
+    <% } %>
+</body>
+</html>

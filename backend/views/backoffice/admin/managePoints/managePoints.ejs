@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Admin Manage Points</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/stylesheets/manage/manage.css">
+	<script defer src="/javascripts/update.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+	<% if(locals.points) { %>
+	<div class="form">
+		<form action="/backoffice/admin/managePoints" method="post" enctype="multipart/form-data">
+			<div class="subtitle">Points Management</div>
+			<div class="input-container ic2">
+				<input name="pointValue" class="input" type="text" placeholder=" "
+				value="<%= locals.points.pointValue %>" oninput="updatedValue()"
+				pattern="0\.00[0-9]" required/>
+				<div class="cut cut-long"></div>
+				<label for="pointValue" class="placeholder">Point To Money </label>
+				<span class="info">
+				Points used to buy books (0.00*)
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="percentagePerPurschase" class="input" type="text" placeholder=" "
+				value="<%= locals.points.percentagePerPurschase %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut cut-superlong"></div>
+				<label for="percentagePerPurschase" class="placeholder">
+				<strong>Percentage</strong> Per Purschase</label>
+				<span class="info">
+				[X] % of the value of the purchase will be added to the user's points
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="shippingPoints" class="input" type="text" placeholder=" "
+				value="<%= locals.points.shippingPoints %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut cut-long"></div>
+				<label for="shippingPoints" class="placeholder">Shipping Points</label>
+				<span class="info">
+				When the user has [X] points, they will receive free shipping
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="newClientRegister" class="input" type="text" placeholder=" "
+				value="<%= locals.points.newClientRegister %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}.+" />
+				<div class="cut cut-long"></div>
+				<label for="newClientRegister" class="placeholder">New Client Register</label>
+				<span class="info">
+				When the user registers for the first time, they will receive [X] points
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="recomendationClient" class="input" type="text" placeholder=" "
+				value="<%= locals.points.recomendationClient %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut cut-long"></div>
+				<label for="recomendationClient" class="placeholder">Recomendation Client</label>
+				<span class="info">
+				When the user recomends a client, they will receive [X] points
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="pointsPerSalePromotion" class="input" type="text" placeholder=" "
+				value="<%= locals.points.pointsPerSalePromotion %>" oninput="updatedValue()"
+				minlength="1" maxlength="50" pattern="[0-9]{1,50}+" />
+				<div class="cut cut-long"></div>
+				<label for="pointsPerSalePromotion" class="placeholder">Points Per Promotion</label>
+				<span class="info">
+				When a promotion is active, the user will receive [X] points for each purchase
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<select class="input" name="salePromotionActive" required>
+					<option value="true" <% if(locals.points.salePromotionActive) { %>selected<% } %>>
+						Active
+					</option>
+					<option value="false" <% if(!locals.points.salePromotionActive) { %>selected<% } %>>
+						Inactive
+					</option>
+				</select>
+				<div class="cut cut-long"></div>
+				<label for="salePromotionActive" class="placeholder">Sale Promotion Active</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="buyedBooks" class="input" type="text" placeholder=" "
+				value="<%= locals.points.buyedBooks %>" oninput="updatedValue()"
+				pattern="0\.00[0-9]" required/>
+				<div class="cut cut-long"></div>
+				<label for="buyedBooks" class="placeholder">Buyed Books </label>
+				<span class="info">
+				Points that the client gains when buying books (0.00*)
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="soldBooks" class="input" type="text" placeholder=" "
+				value="<%= locals.points.soldBooks %>" oninput="updatedValue()"
+				pattern="0\.00[0-9]" required/>
+				<div class="cut cut-long"></div>
+				<label for="soldBooks" class="placeholder">Sold Books</label>
+				<span class="info">
+				Points gained by the number of sold books (0.00*)
+				</span>
+			</div>
+			<br>
+			<div class="input-container ic2">
+				<input name="valueSoldBooks" class="input" type="text" placeholder=" "
+				value="<%= locals.points.valueSoldBooks %>" oninput="updatedValue()"
+				pattern="0\.00[0-9]" required/>
+				<div class="cut cut-long"></div>
+				<label for="valueSoldBooks" class="placeholder">Total Value of Sold Books</label>
+				<span class="info">
+				Total value of sold books by the client (0.00*)
+				</span>
+			</div>
+			<br>
+			<button type="text" class="submit">Update</button>
+		</form>
+		<form action="/backoffice/admin/" method="get">
+			<button type="text" class="back">Back</button>
+		</form>
+	</div>
+	<% } else { %>
+		<h1>Some error occured, could not load point management</h1>
+	<% } %>
+  </body>
+</html>

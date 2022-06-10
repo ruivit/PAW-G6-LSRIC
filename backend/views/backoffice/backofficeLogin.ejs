@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Backoffice Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/stylesheets/login/loginBackoffice.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+	<form action="/backoffice/login" method="post" enctype="multipart/form-data">
+		<div class="form">
+			<div class="title">Welcome</div>
+			<div class="subtitle">Login into your account</div>
+			<% if(locals.message) { %>
+				<div class="errormessage"><%= locals.message %></div>
+			<% } %>
+			<% if(locals.oldata) { %>
+			<div class="input-container ic1">
+				<input name="username" class="input" type="text" placeholder=" "
+				value="<%= locals.oldata.username %>" required />
+				<div class="cut"></div>
+				<label for="username" class="placeholder">Username</label>
+			</div>
+			<% } else { %>
+			<div class="input-container ic1">
+				<input name="username" class="input" type="text" placeholder=" " required/>
+				<div class="cut"></div>
+				<label for="username" class="placeholder">Username</label>
+			</div>
+			<% } %>
+			<div class="input-container ic2">
+				<input name="password" class="input" type="password" placeholder=" " required/>
+				<div class="cut"></div>
+				<label for="password" class="placeholder">Password</>
+			</div>
+			<button type="text" class="submit">Login</button>
+		</div>
+	</form>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+body {
+  background-image: url("/images/backoffice.png");
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:  #1b2631;
+  border: 1px solid #303030;
+  font: 1.1em sans-serif;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color:  #2471a3;
+}
+
+li {
+  border-right: 1px solid gray;
+}
+
+/* Remove the border on logout button */
+li:last-child {
+  border-right: none;
+}
+
+.importantbutton {
+  background-color: #13364d  ;
+}

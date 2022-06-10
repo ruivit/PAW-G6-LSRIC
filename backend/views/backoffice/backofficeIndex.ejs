@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/portals/backoffice.css">
+  <link rel="stylesheet" href="/stylesheets/listing/tableListingBackoffice.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <% if(locals.admin) { %>
+  <title>Admin Backoffice</title>
+  <% } else { %>
+    <title>Employee Backoffice</title>
+  <% } %>
+</head>
+<body>
+  <% if(locals.admin) { %>
+  <ul>
+    <li><a class="importantbutton" href="/">Go to Store</a></li>
+    <li><a><br></a></li>
+    <li><a href="/backoffice/admin/client">Clients</a></li>
+    <li><a href="/backoffice/admin/book">Books</a></li>
+    <li><a href="/backoffice/admin/usedbook">Used Books</a></li>
+    <li><a href="/backoffice/admin/proposals">Proposals</a></li>
+    <li><a><br></a></li>
+    <li><a href="/backoffice/admin/employee">Employees</a></li>
+    <li><a href="/backoffice/admin/sales">Sales</a></li>
+    <li><a href="/backoffice/admin/managePoints">Points</a></li>
+    <li><a href="/backoffice/admin/manageDiscount">Discounts</a></li>
+    <li style="float:right">
+      <a class="importantbutton"
+      href="/backoffice/logout">Logout</a>
+    </li>
+  </ul>
+  <% } else { %>
+    <ul>
+      <li><a class="importantbutton" href="/">Go to Store</a></li>
+      <li><a><br></a></li>
+      <li><a href="/backoffice/employee/client">Clients</a></li>
+      <li><a href="/backoffice/employee/book">Books</a></li>
+      <li><a href="/backoffice/employee/sales">Sales</a></li>
+      <li><a href="/backoffice/employee/profile">Profile</a></li>
+      <li style="float:right">
+        <a class="importantbutton"
+        href="/backoffice/logout">Logout</a>
+      </li>
+    </ul>
+  <% } %>
+</body>
+</html>

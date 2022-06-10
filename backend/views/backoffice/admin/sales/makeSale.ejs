@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/stylesheets/portals/backoffice.css">
+  <link rel="stylesheet" href="/stylesheets/listing/tableListingBackoffice.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <title>Admin Make Sale</title>
+</head>
+<body>
+  <ul>
+    <li><a class="importantbutton" href="/backoffice/admin">Back</a></li>
+    <li style="float:right">
+      <a class="importantbutton"
+      href="/backoffice/logout">Logout</a>
+    </li>
+  </ul>
+  <br>
+    <% if(books.length>0 && !locals.message) { %>
+      <table class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Image</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i<books.length;i++) { %>
+            <form action="/backoffice/admin/sales/makeSale" method="post">
+            <tr>
+              <td data-label="Title"><br><br> <%=books[i].title%> </td>
+              <td data-label="Image"> <!-- public/images/books/id.jpg -->
+                <img src="/images/books/<%=books[i].id%>.jpg" width="100" height="100">
+              <td data-label="operations">
+                <br><br>
+                <span class="material-icons">shopping_cart</span>
+                <input type="checkbox" name="bookId" value="<%=books[i].id%>">
+              </td>
+            </tr>
+          <% } %>
+          <table>
+            <br>
+            <tr>
+              <td>
+                <input type="text" name="clientUsername" placeholder="Client Username">
+              </td>
+              <td>
+                <input class="submit" type="submit" value="Make Sale">
+              </td>
+            </tr>
+          </table>
+        </tbody>
+      </table>
+      </form>
+    <% } else { %>
+      <% if(!locals.message) { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">No Books were found</th>
+            </tr>
+          </thead>
+        </table>
+      <% } %>
+    <% } %>
+    <% if(locals.message) { %>
+      <div class="message">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"><%= message %></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    <% } %>
+</body>
+</html>

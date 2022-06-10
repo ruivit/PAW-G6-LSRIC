@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>You sell, we buy!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/stylesheets/sales/sellBook.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+	<% if(locals.oldata) { %>
+	<form action="/client/sellbook" method="post" enctype="multipart/form-data">
+		<div class="form">
+			<div class="subtitle">Sell us your book!</div>
+			<div class="errormessage"><%= locals.message %></div>
+			<div class="input-container ic1">
+				<input type="text" name="title" id="title" value="<%= locals.oldata.title %>"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut"></div>
+				<label for="title" class="placeholder">Title</label>
+			</div>
+			<div class="input-container ic2">
+				<input type="text" name="author" id="author" value="<%= locals.oldata.author %>"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut"></div>
+				<label for="author" class="placeholder">Author</label>
+			</div>
+			<div class="input-container ic2">
+				<select class="input" name="genre" required>
+					<option value="Action/Adventure">Action/Adventure</option>
+					<option value="Comedy">Comedy</option>
+					<option value="Drama">Drama</option>
+					<option value="Horror">Horror</option>
+					<option value="Romance">Romance</option>
+					<option value="Sci-Fi">Sci-Fi</option>
+					<option value="Thriller">Thriller</option>
+					<option value="Education">Education</option>
+					<option value="Other">Other</option>
+				</select>
+				<div class="cut"></div>
+				<label for="genre" class="placeholder">Genre</label>
+			</div>
+			<div class="input-container ic2">
+				<input type="text" name="editor" id="editor" value="<%= locals.oldata.editor %>"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut"></div>
+				<label for="editor" class="placeholder">Editor</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="resume" id="resume" value="<%= locals.oldata.resume %>"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut"></div>
+				<label for="resume" class="placeholder">Resume</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="isbn" class="input" type="text" placeholder=" " required
+				value="<%= locals.oldata.isbn %>" pattern="[0-9].+" minlength="10" maxlength="10">
+				<div class="cut"></div>
+				<label for="isbn" class="placeholder">ISBN</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="price" class="input" type="text" placeholder=" " required
+				value="<%= locals.oldata.price %>" pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="10">
+				<div class="cut cut-long"></div>
+				<label for="price" class="placeholder">Price</label>
+			</div>
+			<button type="text" class="submit">Sell!</button>
+		</div>
+	</form>
+	<% } else { %>
+	<form action="/client/sellbook" method="post" enctype="multipart/form-data">
+		<div class="form">
+			<div class="subtitle">Sell us your book!</div>
+			<div class="input-container ic1">
+				<input type="text" name="title" id="title" class="input"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut"></div>
+				<label for="title" class="placeholder">Title</label>
+			</div>
+			<div class="input-container ic2">
+				<input type="text" name="author" id="author" class="input"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut"></div>
+				<label for="author" class="placeholder">Author</label>
+			</div>
+			<div class="input-container ic2">
+				<select class="input" name="genre" required>
+					<option value="Action/Adventure">Action/Adventure</option>
+					<option value="Comedy">Comedy</option>
+					<option value="Drama">Drama</option>
+					<option value="Horror">Horror</option>
+					<option value="Romance">Romance</option>
+					<option value="Sci-Fi">Sci-Fi</option>
+					<option value="Thriller">Thriller</option>
+					<option value="Education">Education</option>
+					<option value="Other">Other</option>
+				</select>
+				<div class="cut"></div>
+				<label for="genre" class="placeholder">Genre</label>
+			</div>
+			<div class="input-container ic2">
+				<input type="text" name="editor" id="editor" class="input"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut"></div>
+				<label for="editor" class="placeholder">Editor</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="resume" id="resume" class="input"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut cut-long"></div>
+				<label for="resume" class="placeholder">Resume</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="isbn" class="input" type="text" placeholder=" " required
+				pattern="[0-9]{13,13}" minlength="1" maxlength="13">
+				<div class="cut"></div>
+				<label for="isbn" class="placeholder">ISBN</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="price" class="input" type="text" placeholder=" " required
+				pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="10">
+				<div class="cut cut-long"></div>
+				<label for="price" class="placeholder">Price</label>
+			</div>
+			<button type="text" class="submit">Sell!</button>
+		</div>
+	</form>
+	<% } %>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Admin Create Client</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/stylesheets/create/createBackofficeClient.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+	<% if(locals.oldata) { %>
+	<div class="form">
+		<form action="/backoffice/admin/client/create" method="post" enctype="multipart/form-data">
+			<div class="subtitle">Create a new client account</div>
+			<div class="errormessage"><%= locals.message %></div>
+			<div class="input-container ic1">
+				<input name="username" class="input" type="text" placeholder=" "
+				value="<%= locals.oldata.username %>" required
+				minlength="2" maxlength="20" pattern="[a-zA-Z0-9]+">
+				<div class="cut"></div>
+				<label for="username" class="placeholder">Username</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="email" class="input" type="text" placeholder=" "
+				value="<%= locals.oldata.email %>" required
+				minlength="2" maxlength="100" pattern="[a-zA-z0-9]+@+((.+)[a-zA-z0-9]){1,3}"/>
+				<div class="cut"></div>
+				<label for="email" class="placeholder">Email</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="name" class="input" type="text" placeholder=" "
+				value="<%= locals.oldata.name %>" required
+				minlength="2" maxlength="100" pattern="[a-zA-Z0-9].+" />
+				<div class="cut"></div>
+				<label for="name" class="placeholder">Name</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="address" class="input" type="text" placeholder=" "
+				value="<%= locals.oldata.address %>" required
+				minlength="2" maxlength="100" pattern="[a-zA-Z0-9].+" />
+				<div class="cut"></div>
+				<label for="address" class="placeholder">Address</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="phone" class="input" type="text" placeholder=" "
+				value="<%= locals.oldata.phone %>" required
+				minlength="9" maxlength="9" pattern="[0-9]+" />
+				<div class="cut cut-long"></div>
+				<label for="phone" class="placeholder">Phone Number</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="points" class="input" type="text" placeholder=" "
+				value="<%= locals.oldata.points %>"
+				minlength="2" maxlength="10" pattern="[0-9]+" />
+				<div class="cut"></div>
+				<label for="points" class="placeholder">Points</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="birthDate" class="input" type="date" placeholder=" "
+				value="<%= locals.oldata.birthDate %>" required />
+				<div class="cut"></div>
+				<label for="birthDate" class="placeholder">Birth Date</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="password" class="input" type="password" placeholder=" " id="password"
+				required minlength="1" maxlength="200" />
+				<div class="cut"></div>
+				<label for="password" class="placeholder">Password</>
+			</div>
+			<span class="passwordpolicy">
+Minimum 8 characters, at least 1 letter, 1 number and 1 special character
+			</span>
+			<button type="text" class="submit">Create</button>
+		</form>
+		<form action="/backoffice/admin/client" method="get">
+			<button type="text" class="back">Back</button>
+		</form>
+	</div>
+	<% } else { %>
+	<div class="form">
+		<form action="/backoffice/admin/client/create" method="post" enctype="multipart/form-data">
+			<div class="subtitle">Create your new account</div>
+			<div class="input-container ic1">
+				<input name="username" class="input" type="text" placeholder=" "
+				required minlength="2" maxlength="20" pattern="[a-zA-Z0-9]+">
+				<div class="cut"></div>
+				<label for="username" class="placeholder">Username</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="email" class="input" type="text" placeholder=" " required
+				minlength="2" maxlength="100" pattern="[a-zA-z0-9]+@+((.+)[a-zA-z0-9]){1,3}"/>
+				<div class="cut"></div>
+				<label for="email" class="placeholder">Email</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="name" class="input" type="text" placeholder=" " required
+				minlength="2" maxlength="100" pattern="[a-zA-Z0-9].+" />
+				<div class="cut"></div>
+				<label for="name" class="placeholder">Name</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="address" class="input" type="text" placeholder=" " required
+				minlength="2" maxlength="100" pattern="[a-zA-Z0-9].+" />
+				<div class="cut"></div>
+				<label for="address" class="placeholder">Address</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="phone" class="input" type="text" placeholder=" " required
+				minlength="9" maxlength="9" pattern="[0-9]+" />
+				<div class="cut cut-long"></div>
+				<label for="phone" class="placeholder">Phone Number</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="points" class="input" type="text" placeholder=" "
+				minlength="2" maxlength="10" pattern="[0-9]+" />
+				<div class="cut"></div>
+				<label for="points" class="placeholder">Points</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="birthDate" class="input" type="date" required />
+				<div class="cut"></div>
+				<label for="birthDate" class="placeholder">Birth Date</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="password" class="input" type="password" placeholder=" " id="password" 
+				required minlength="1" maxlength="200" />
+				<div class="cut"></div>
+				<label for="password" class="placeholder">Password</>
+			</div>
+			<span class="passwordpolicy">
+			Minimum 8 characters, at least 1 letter, 1 number and 1 special character
+			</span>
+			<button type="text" class="submit">Create</button>
+		</form>
+		<form action="/backoffice/admin/client" method="get">
+			<button type="text" class="back">Back</button>
+		</form>
+	</div>
+	<% } %>
+  </body>
+</html>
+<!-- minlength="8" maxlength="20" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" /> -->

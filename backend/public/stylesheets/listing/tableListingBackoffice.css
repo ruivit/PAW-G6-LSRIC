@@ -1,0 +1,78 @@
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table caption {
+    font-size: 1em;
+    margin: .5em 0 .75em;
+}
+
+table tr {
+    background-color: #1b2631;
+    border: 1.5px solid #ccc;
+	color: rgb(255, 255, 255);
+    padding: .35em;
+}
+
+table th,
+table td {
+    padding: .625em;
+    text-align: center; 
+    vertical-align: middle;
+    font-size: .75em;
+}
+
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+
+/* general styling */
+body {
+    font-family: sans-serif;
+    line-height: 1.25;
+}
+
+.edit {
+    font-style: normal;
+    color: darkgoldenrod
+}
+
+.delete {
+    font-style: normal;
+    color: firebrick;
+}
+
+.successmessage {
+    color: white;
+    font-weight: bold;
+}
+
+.pagination a {
+    display: inline-block;
+    color: #c2c2c2;
+    text-align: center;
+    padding: 7px;
+    text-decoration: none;
+    font-size: larger;
+}
+
+.pagination a:hover {
+    color: #113fd7;
+}
+
+.pagination a.active {
+    color: white;
+    font-weight: bold;
+}  
+
+
+
+  

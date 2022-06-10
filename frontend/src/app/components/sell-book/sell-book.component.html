@@ -1,0 +1,96 @@
+
+<div class="container-fluid mb-5">
+    <h1>Sell Used Book Form</h1>
+    <form #usedBookForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+		<div class="form-group">
+            <label>Book Title</label>
+            <input type="text" #title="ngModel" pattern="[a-zA-Z0-9]{-1,100}" required   
+            [class.is-invalid]="title.invalid && title.touched"  class="form-control" 
+            name="title" [(ngModel)]="tempBookModel.title">
+            <div *ngIf="title.errors && (title.invalid || title.touched)">
+                <small class="text-danger" *ngIf="title.errors?.['required']">Title is required</small>
+                <small class="text-danger" *ngIf="title.errors?.['pattern']">Title must be max 100 characters</small>                
+            </div>                
+        </div>
+
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" #author="ngModel"  required pattern="[a-zA-Z0-9]{5,35}$"  
+            [class.is-invalid]="author.invalid && author.touched" class="form-control" name="author" [(ngModel)]="tempBookModel.author">
+            <div *ngIf="author.errors && (author.invalid || author.touched)">
+                <small class="text-danger" *ngIf="author.errors?.['required']">Author is required</small>
+                <small class="text-danger" *ngIf="author.errors?.['pattern']">Author must be min 5 characters and max 50 characters</small>                
+            </div>            
+        </div>
+
+        <div class="form-group">
+            <label>Genre</label>
+            <div>
+            <select (blur)="validateGenre(genre.value)" (change)="validateGenre(genre.value)" #genre="ngModel" [class.is-invalid]="genre.invalid && genre.touched" class="custom-select" name="genre" [(ngModel)]="tempBookModel.genre">
+                [class.is-invalid]="genreHasError && genre.touched"
+                <option value="default">Choose Genre</option>
+                <option *ngFor="let genre of genres">{{ genre }}</option>
+                <small class="text-danger" [class.d-none]="!genreHasError || genre.touched">Genre is required</small>
+            </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Editor</label>
+            <input   type="text" #editor="ngModel" required pattern="[a-zA-Z0-9]{5,35}$"  
+            [class.is-invalid]="editor.invalid && editor.touched" class="form-control" name="editor"[(ngModel)]="tempBookModel.editor">
+            <div *ngIf="editor.errors && (editor.invalid || editor.touched)">
+                <small class="text-danger" *ngIf="editor.errors?.['required']">Editor is required</small>
+                <small class="text-danger" *ngIf="editor.errors?.['pattern']">Editor must be min 5 characters and max 50 characters</small>
+            </div>    
+        </div>
+
+        <div class="form-group">
+            <label>Resume</label>
+            <input type="text" #resume="ngModel" required pattern="[a-zA-Z0-9]{5,500}$"
+            [class.is-invalid]="resume.invalid && resume.touched" class="form-control" name="resume"[(ngModel)]="tempBookModel.resume">
+            <div *ngIf="resume.errors && (resume.invalid || resume.touched)">
+                <small class="text-danger" *ngIf="resume.errors?.['required']">Resume is required</small>
+                <small class="text-danger" *ngIf="resume.errors?.['pattern']">Resume must be min 5 characters and max 500 characters</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>ISBN</label>
+            <input type="number" #isbn="ngModel" required pattern="[0-9]{13,13}" 
+            [class.is-invalid]="isbn.invalid && isbn.touched" class="form-control" name="isbn"[(ngModel)]="tempBookModel.isbn">
+            <div *ngIf="isbn.errors && (isbn.invalid || isbn.touched)">
+                <small class="text-danger" *ngIf="isbn.errors?.['required']">ISBN is required</small>
+                <small class="text-danger" *ngIf="isbn.errors?.['pattern']">ISBN must be 13 characters</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Sell Price</label>
+            <input name="sellPrice" class="form-control" required pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5" #sellprice="ngModel" 
+            [class.is-invalid]="sellprice.invalid && sellprice.touched" name="sellprice"[(ngModel)]="tempBookModel.sellPrice">
+        </div>
+
+        <!-- <div class="custom-file input-container ic2">
+            <input name="cover" class="custom-file-input" type="file" required>
+            <label>Choose Book Cover Image</label>
+        </div> -->
+
+        <!-- <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+        <button (click)="fileInput.click()">Select File</button> -->
+
+        <div class="container">
+            <div class="row mt-5">
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="formFile" class="form-label">Upload file example</label>
+                  <input (change)="onFileChanged($event)" class="form-control" type="file" id="formFile">
+                </div>
+              </div>
+            </div>
+           </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>    
+</div>

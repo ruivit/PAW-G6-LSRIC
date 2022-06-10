@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Admin Create Book</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/stylesheets/create/createBook.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+  </head>
+  <body>
+	<% if(locals.oldata) { %>
+	<div class="form">
+		<form action="/backoffice/admin/book/create" method="post" enctype="multipart/form-data">		
+			<div class="subtitle">Create a new Book</div>
+			<div class="errormessage"><%= locals.message %></div>
+			<div class="input-container ic1">
+				<input type="text" name="title" id="title" value="<%= locals.oldata.title %>"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50" class="input">
+				<div class="cut"></div>
+				<label for="title" class="placeholder">Title</label>
+			</div>
+			<div class="input-container ic2">
+				<input type="text" name="author" id="author" value="<%= locals.oldata.author %>"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50" class="input">
+				<div class="cut"></div>
+				<label for="author" class="placeholder">Author</label>
+			</div>
+			<div class="input-container ic2">
+				<select class="input" name="genre" required>
+					<option value="Art">Art</option>
+					<option value="Biography">Biography</option>
+					<option value="Business">Business</option>
+					<option value="Children">Children</option>
+					<option value="Comics">Comics</option>
+					<option value="Cookbooks">Cookbooks</option>
+					<option value="Dictionaries">Dictionaries</option>
+					<option value="Fantasy">Fantasy</option>
+					<option value="Fiction">Fiction</option>
+					<option value="Graphic Novels">Graphic Novels</option>
+					<option value="Historical Fiction">Historical Fiction</option>
+					<option value="Action/Adventure">Action/Adventure</option>
+					<option value="Drama">Drama</option>
+					<option value="Horror">Horror</option>
+					<option value="Romance">Romance</option>
+					<option value="Thriller">Thriller</option>
+					<option value="Education">Education</option>
+					<option value="Other">Other</option>
+				</select>
+				<div class="cut"></div>
+				<label for="genre" class="placeholder">Genre</label>
+			</div>
+			<div class="input-container ic2">
+				<input type="text" name="editor" id="editor" value="<%= locals.oldata.editor %>"
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50" class="input">
+				<div class="cut"></div>
+				<label for="editor" class="placeholder">Editor</label>
+			</div>
+			<div class="input-container ic2">
+				<input type="text" name="resume" class="input" id="resume" value="<%= locals.oldata.resume %>" 
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				<div class="cut cut-long"></div>
+				<label for="resume" class="placeholder">Resume</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="isbn" class="input" type="text" id="isbn" value="<%= locals.oldata.isbn %>" 
+				required pattern="[0-9]{13,13}" minlength="13" maxlength="13">
+				<div class="cut"></div>
+				<label for="isbn" class="placeholder">ISBN</label>
+			</div>
+			<div class="input-container ic2">
+				<select class="input" name="condition">
+					<option value="New">New</option>
+					<option value="Used">Used</option>
+				</select>
+				<div class="cut cut-long"></div>
+				<label for="condition" class="placeholder">Condition</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="provider" class="input" type="text" id="provider" value="<%= locals.oldata.provider %>"
+				required pattern="[a-zA-Z0-9].+" minlength="2" maxlength="50">
+				<div class="cut cut-long"></div>
+				<label for="provider" class="placeholder">Provider</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="sellPrice" class="input" type="text" id="sellPrice" value="<%= locals.oldata.sellPrice %>" 
+				required pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+				<div class="cut cut-long"></div>
+				<label for="sellPrice" class="placeholder">Sell Price</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="buyPrice" class="input" type="text" id="buyPrice" value="<%= locals.oldata.buyPrice %>"
+				required pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+				<div class="cut cut-long"></div>
+				<label for="buyPrice" class="placeholder">Buy Price</label>
+			</div>
+			<div class="input-container ic2">
+				<input name="cover" class="input" type="file" value="<%= locals.oldata.buyPrice %>" required/>
+				<div class="cut cut-long"></div>
+				<label for="cover" class="placeholder">Cover</label>
+			</div>
+			<button type="text" class="submit">Create</button>
+			</form>
+		<form action="/backoffice/admin/book" method="get">
+			<button type="text" class="back">Back</button>
+		</form>
+	</div>
+	<% } else { %>
+	<div class="form">
+		<form action="/backoffice/admin/book/create" method="post" enctype="multipart/form-data">
+				<div class="subtitle">Create a new Book</div>
+				<div class="errormessage"><%= locals.message %></div>
+				<div class="input-container ic1">
+					<input name="title" class="input" type="text" placeholder=" "
+					required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+					<div class="cut"></div>
+					<label for="title" class="placeholder">Title</label>
+				</div>
+				<div class="input-container ic2">
+					<input name="author" class="input" type="text" placeholder=" " required
+					pattern="[a-zA-Z0-9].+" minlength="2" maxlength="50">
+					<div class="cut"></div>
+					<label for="author" class="placeholder">Author</label>
+				</div>
+				<div class="input-container ic2">
+					<select class="input" name="genre" required>
+					<option value="Art">Art</option>
+					<option value="Biography">Biography</option>
+					<option value="Business">Business</option>
+					<option value="Children">Children</option>
+					<option value="Comics">Comics</option>
+					<option value="Cookbooks">Cookbooks</option>
+					<option value="Dictionaries">Dictionaries</option>
+					<option value="Fantasy">Fantasy</option>
+					<option value="Fiction">Fiction</option>
+					<option value="Graphic Novels">Graphic Novels</option>
+					<option value="Historical Fiction">Historical Fiction</option>
+					<option value="Action/Adventure">Action/Adventure</option>
+					<option value="Drama">Drama</option>
+					<option value="Horror">Horror</option>
+					<option value="Romance">Romance</option>
+					<option value="Thriller">Thriller</option>
+					<option value="Education">Education</option>
+					<option value="Other">Other</option>
+					</select>
+					<div class="cut"></div>
+					<label for="genre" class="placeholder">Genre</label>
+				</div>
+				<div class="input-container ic2">
+					<input name="editor" class="input" type="text" placeholder=" " required
+					pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+					<div class="cut"></div>
+					<label for="editor" class="placeholder">Editor</label>
+				</div>
+				<div class="input-container ic2">
+					<input name="resume" class="input" type="text" placeholder=" " required
+					pattern="[a-zA-Z0-9].+" minlength="5" maxlength="500">
+					<div class="cut cut-long"></div>
+					<label for="resume" class="placeholder">Resume</label>
+				</div>
+				<div class="input-container ic2">
+					<input name="isbn" class="input" type="text" placeholder=" " required
+					pattern="[0-9]{13,13}" minlength="1" maxlength="13">
+					<div class="cut"></div>
+					<label for="isbn" class="placeholder">ISBN</label>
+				</div>
+				<div class="input-container ic2">
+					<select class="input" name="condition">
+						<option value="New">New</option>
+						<option value="Used">Used</option>
+					</select>
+					<div class="cut cut-long"></div>
+					<label for="condition" class="placeholder">Condition</label>
+				</div>
+				<div class="input-container ic2">
+					<input name="provider" class="input" type="text" placeholder=" " required
+					pattern="[a-zA-Z0-9].+" minlength="2" maxlength="50">
+					<div class="cut cut-long"></div>
+					<label for="provider" class="placeholder">Provider</label>
+				</div>
+				<div class="input-container ic2">
+					<input name="sellPrice" class="input" type="text" placeholder=" " required
+					pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+					<div class="cut cut-long"></div>
+					<label for="sellPrice" class="placeholder">Sell Price</label>
+				</div>
+				<div class="input-container ic2">
+					<input name="buyPrice" class="input" type="text" placeholder=" " required
+					pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+					<div class="cut cut-long"></div>
+					<label for="buyPrice" class="placeholder">Buy Price</label>
+				</div>
+				<div class="custom-file input-container ic2">
+					<input name="cover" class="custom-file-input" type="file" required/>
+					<div class="cut cut-long"></div>
+					<label for="cover" class="custom-file-label">Choose Book Cover Image</label>
+				</div>
+				<button type="text" class="submit">Create</button>
+			</form>
+		<form action="/backoffice/admin/book" method="get">
+			<button type="text" class="back">Back</button>
+		</form>
+	</div>
+	<% } %>
+  </body>
+</html>

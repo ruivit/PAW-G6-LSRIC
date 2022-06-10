@@ -1,0 +1,32 @@
+<app-topbar></app-topbar>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Book(s) Title(s)</th>
+            <th scope="col">Total (€)</th>
+            <th scope="col">Shipping (€)</th>
+            <th scope="col">Gained Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let purchase of purchases; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ purchase.dateString }}</td>
+            <table class="table">
+                <tbody>
+                    <tr *ngFor="let book of purchase.books; index as b">
+                        <td>{{ purchase.booksTitle[b] }}
+                            ({{ purchase.quantity[b] }}x)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <td>{{ purchase.total }} €</td>
+            <td>{{ purchase.shipping }} €</td>
+            <td>+{{ purchase.gainedPoints }}</td>
+        </tr>
+    </tbody>
+</table>
