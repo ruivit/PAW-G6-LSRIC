@@ -1,5 +1,6 @@
 var crypto = require('crypto');
 var fs = require('fs');
+var sharp = require('sharp');
 
 const pointsIDcollection = "628f8e0357a2e0f1b8541354";
 const discountIDcollection = "628f8d9857a2e0f1b8541351";
@@ -15,6 +16,7 @@ var UsedBook = require('../models/usedBookModel');
 var Author = require('../models/authorModel');
 var Editor = require('../models/editorModel');
 
+var nodemailer = require('nodemailer');
 var Sale = require('../models/saleModel');
 var Points = require('../models/pointsModel');
 var Discount = require('../models/discountModel');
@@ -24,7 +26,7 @@ var Discount = require('../models/discountModel');
 function getDateNow(date) {
     var d = new Date();
     dateNowString = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
-    d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+    d.getFullYear();
     return dateNowString;
 }
 
@@ -284,7 +286,7 @@ exports.backoffice_admin_client_create_post = function (req, res) {
             phone: req.body.phone,
             points: calculatePoints(req.body.points), // Milestone2
             birthDate: req.body.birthDate,
-            dateString: req.body.birthDate,
+            dateString: getDateNow(req.body.birthDate),
         });
 
         client.setPassword(req.body.password);
@@ -306,6 +308,7 @@ exports.backoffice_admin_client_create_post = function (req, res) {
 exports.backoffice_admin_client_update_get = async function (req, res) {   
     try {
         var client = await Client.findById(req.params.id);
+        console.log(client);
         
         res.render('backoffice/admin/client/updateClient', { client: client });
         // Milestone2 - add message of success
@@ -543,10 +546,20 @@ exports.backoffice_admin_book_create_post = function (req, res) {
                     }
                 }); // Editor end
 
+               
+                
                 // save the cover
                 if (req.file) {
-                    fs.writeFileSync("./public/images/books/" + book._id + ".jpg", req.file.buffer);
+                    fs.writeFileSync("./public/images/books/tempImage.jpg", req.file.buffer);
                 }
+
+                // resise the cover 500x500
+                sharp("./public/images/books/tempImage.jpg").
+                resize(750, 1000).toFile("./public/images/books/" + book._id + ".jpg");
+                // Delete tempImage.jpg
+                fs.unlinkSync("./public/images/books/tempImage.jpg");
+                
+
             }
         }); // Book save end
         res.redirect('/backoffice/admin/book');
@@ -594,6 +607,7 @@ exports.backoffice_admin_book_delete_post = function (req, res) {
 //#region Sale
 
 exports.backoffice_admin_sales_get = async function (req, res) {
+    console.log(req.session);
     async function getTitleBooks (req, res, sales) {
         for (var i = 0; i < sales.length; i++) {
             for (var j = 0; j < sales[i].books.length; j++) {
@@ -607,7 +621,7 @@ exports.backoffice_admin_sales_get = async function (req, res) {
     async function getEmployeeUsername (req, res, sales) {
         for (var i = 0; i < sales.length; i++) {
             var employee = await Employee.findById(sales[i].employee_id);
-            sales[i].employeeUsername = employee.username;
+            sales[i].employeeUsername = req.session.username;
         }
         return sales;
     }
@@ -827,7 +841,7 @@ exports.backoffice_admin_proposals_get = async function (req, res) {
             books = await TempBook.find().skip(pD.startFrom).limit(pD.perPage).sort({ dateAdded: 1 });
         }
         
-        res.render('backoffice/admin/proposels/indexProposels', 
+        res.render('backoffice/admin/proposals/indexProposals', 
         { books: books, totalPages: pD.totalPages, currentPage: pD.pageNumber, query: req.query.search });
         // Milestone2 - add message of success
     } catch (error) {
@@ -894,6 +908,7 @@ exports.backoffice_admin_usedbook_get = async function (req, res) {
     }
 }; // List/show the books
 
+//#region used books
 // --------------------- Backoffice/Admin/UsedBooks/Create ---------------------------
 
 
@@ -920,7 +935,7 @@ exports.backoffice_admin_usedbook_create_post = function (req, res) {
             oldata = req.body;
             books = [];
             console.log(oldata,"erro de isbn");
-            res.render('backoffice/admin/proposels/indexProposels',
+            res.render('backoffice/admin/proposals/indexProposals',
             { books: books, message: "We already have this book in our used book stock." });
         } else {
             // If the isbn is not already in use, create the book
@@ -1015,6 +1030,20 @@ exports.backoffice_admin_usedbook_create_post = function (req, res) {
                 });
             }
         }); // UsedBook save end
+
+        // Upadate the client's points and the client's sold books
+        
+        Client.findOne({ username: req.body.provider }, function (err, client) {
+            if (err) { res.status(500).json(err); }
+            else {
+                var gainedPoints = req.body.buyPrice * 10;
+                client.points += gainedPoints;    
+                client.soldBooks = client.soldBooks + 1;
+                client.save(function (err) { if (err) { return err; } });
+            }
+        });
+        
+
         res.redirect('/backoffice/admin/usedbook');
     }
     }); // Promise end
@@ -1054,6 +1083,52 @@ exports.backoffice_admin_usedbook_delete_post = function (req, res) {
     });
 }; // Delete a book
 
+//#endregion
+
+// ------------------Backoffice/Admin/tempbook----------------- 
+
+function sendMailClient(tempBook) {
+    var transporter = nodemailer.createTransport({
+        service: 'outlook',
+        auth: {
+          user: 'tugatobito@outlook.pt',
+          pass: 'bah54321'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'tugatobito@outlook.pt',
+        to: '8210227@estg.ipp.pt',
+        subject: 'My Library',
+        text: 'Agradecemos sua proposta submetida na data ' + tempBook.dateString + '\n\n' +
+        'Proposta:\n' + 
+        'Titulo: ' + tempBook.title + '\n' + 
+        'ISBN: ' + tempBook.isbn + '\n' + 
+        'Seel Price: ' + tempBook.sellPrice + '\n' + 
+        'Estado: Não aceite.\n' +
+        '\n\n' + 'Com os melhores cumprimentos,\n' +
+        '\n\n' + 'A Administração'
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+    transporter.close();
+}
 
 
-
+exports.backoffice_admin_tempbook_delete_post = function (req, res) {
+    TempBook.findByIdAndRemove(req.params.id, function (err, tempBook) {
+        if (err) {
+            res.render('error/error', { message: "Error deleting book", error: err });
+        } else {
+            sendMailClient(tempBook);
+            // Milestone2 - add message of success
+            res.redirect('/backoffice/admin/proposals');
+        }
+    });
+}; // Delete a book

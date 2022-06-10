@@ -1,34 +1,34 @@
 export class Book {
-    constructor(
-        public _id: number, 
-        public title: String, 
-        public author: String, 
-        public genre: String, 
-        public editor: String, 
-        public resume: String, 
-        public avaliation: number, 
-        public isbn: number, 
-        public date: String, 
-        public condition: String, 
-        public provider: String,
-        public quantityToBuy: number,
-        public stock: number, 
-        public sellPrice: number, 
-        public buyPrice: number) {
-            this._id = _id;
-            this.title = title;
-            this.author = author;
-            this.genre = genre;
-            this.editor = editor;
-            this.resume = resume;
-            this.avaliation = avaliation;
-            this.isbn = isbn;
-            this.date = date;
-            this.condition = condition;
-            this.provider = provider;
-            this.quantityToBuy = quantityToBuy;
-            this.stock = stock;
-            this.sellPrice = sellPrice;
-            this.buyPrice = buyPrice;
-        }
+    _id: number;
+    title: string;
+    author: String;
+    genre: String;
+    editor: String;
+    resume: String;
+    avaliation: number;
+    isbn: number;
+    date: Date;
+    condition: String;
+    provider: any;
+    stock: number;
+    sellPrice: number;
+    buyPrice: number;
+
+    constructor(book: Book) {
+        this._id = book._id;
+        this.title = book.title;
+        this.author = book.author;
+        this.genre = book.genre;
+        this.editor = book.editor;
+        this.resume = book.resume;
+        this.avaliation = book.avaliation;
+        this.isbn = book.isbn;
+        this.date = book.date;
+        this.condition = book.condition;
+        this.provider = book.provider;
+        this.stock = book.stock;
+        this.sellPrice = book.sellPrice;
+        this.buyPrice = book.buyPrice;
     }
+}
+

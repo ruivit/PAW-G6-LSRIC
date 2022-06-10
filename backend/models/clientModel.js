@@ -13,9 +13,10 @@ var ClientSchema = new Schema({
   birthDate: { type: Date, required: true },
   dateString: { type: String, required: true },
   ageType: { type: String, required: true },
+  recommendedBy: { type: String, required: false },
 
   totalBuys: { type: Number, required: false, default: 0 },
-  // Quando se compra um livro, +1
+  // Quando o cliente faz uma compra incrementa ao totalBuys o numero de livros comprados
 
   soldBooks: { type: Number, required: false, default: 0 },
   // Quantidade de livros vendidos pelo cliente

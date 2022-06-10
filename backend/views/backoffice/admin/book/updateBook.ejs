@@ -92,18 +92,6 @@
 				<div class="cut cut-long"></div>
 				<label for="buyPrice" class="placeholder">Buy Price</label>
 			</div>
-			<div class="input-container ic2">
-				<select class="input" name="forSale" required>
-					<option value="true" <% if(locals.book.forSale) { %>selected<% } %>>
-						Active
-					</option>
-					<option value="false" <% if(!locals.book.forSale) { %>selected<% } %>>
-						Inactive
-					</option>
-				</select>
-				<div class="cut cut-long"></div>
-				<label for="forSale" class="placeholder">For Sale</label>
-			</div>
 			<button type="text" class="submit">Update</button>
 		</form>
 		<form action="/backoffice/admin/book" method="get">

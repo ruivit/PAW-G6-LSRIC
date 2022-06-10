@@ -1,0 +1,68 @@
+#wrapper {
+  text-align: center;
+}
+#search {
+  display: inline-block;
+}
+
+.parent {
+  background-color: rgb(233, 233, 233);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.div1 {
+  grid-area: 2 / 1 / 6 / 6;
+}
+
+.div2 {
+  grid-area: 1 / 1 / 2 / 6;
+}
+
+mat-toolbar {
+  justify-content: space-between;
+}
+
+.content {
+  padding: 10px;
+  padding-top: 20px;
+}
+
+mat-card {
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+.main-image{
+  margin: 0 auto;
+  width: calc(85% - 50px);
+  height: calc(65% - 50px);
+  object-fit: cover;
+  justify-content: center;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.info {
+  padding: 10px;
+  width: 350px;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 25px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+mat-car-content {
+ height: 25px;
+}

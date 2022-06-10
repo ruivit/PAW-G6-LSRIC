@@ -1,6 +1,7 @@
 var express = require('express');
 var multer = require('multer');
 var router = express.Router();
+var nodemailer = require('nodemailer');
 
 var jwt = require('jsonwebtoken');
 
@@ -132,6 +133,8 @@ router.post('/manageDiscount', multer().none(), controller.backoffice_admin_mana
 // ------------------------------ /Backoffice/Admin/Proposals ------------------------
 
 router.get('/proposals', controller.backoffice_admin_proposals_get);
+
+router.post('/tempbook/delete/:id', multer().none(), controller.backoffice_admin_tempbook_delete_post);
 
 // ------------------------------ /Backoffice/Admin/UsedBooks --------------------------
 

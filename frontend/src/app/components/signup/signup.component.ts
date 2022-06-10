@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+
 import { UserService } from '../../services/user/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-signup',
@@ -11,20 +13,27 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  constructor(private User: UserService, private router: Router, private snackBar: MatSnackBar) { }
+
+  constructor(
+    private User: UserService, 
+    private router: Router, 
+    private snackBar: MatSnackBar) { }
+
   signupForm = new FormGroup({
     username: new FormControl(''),
     name: new FormControl(''),
     email: new FormControl(''),
     address: new FormControl(''),
-    phone_number: new FormControl(''),
+    phone: new FormControl(''),
     password: new FormControl(''),
     birthDate: new FormControl(''),
     ageType: new FormControl(''),
-    recommendation: new FormControl('')
+    recommendedBy: new FormControl('')
   });
+
   ngOnInit() { }
 
+  // Calculate age type based on birth date
   calculateAgeType(birthDate: string) {
     const today = new Date();
     const birthDateDate = new Date(birthDate);
@@ -46,15 +55,21 @@ export class SignupComponent implements OnInit {
     
     this.User.registerNewUser(this.signupForm.value).subscribe(
       (data: any) => {
-        console.log(data);
         this.router.navigate([ '/login' ]);
+        if (data.wasRecommended) {
+          this.snackBar.open("User created successfully. You really have a good friend", '', { duration: 3000 });
+        } else {
+          this.snackBar.open("User created successfully", '', { duration: 3000 });
+        }
       },
       (err: HttpErrorResponse) => {
         if (err.error.msg) {
           console.log(err.error.msg);
-          this.snackBar.open(err.error.msg, 'Undo');
+          this.snackBar.open(err.error.msg, 'Ok');
         } else {
-          this.snackBar.open('Something Went Wrong!');
+          this.snackBar.open(err.error.msg, 'Ok', {
+            duration: 5000,
+          });
         }
       }
     );

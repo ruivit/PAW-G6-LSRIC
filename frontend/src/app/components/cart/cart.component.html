@@ -1,48 +1,66 @@
-<div class="container">
-	<div class="title">
-		<h2>Product Order Form</h2>
-	</div>
-  <div class="d-flex">
-	<form action="" method="">
-	  <label>
-		<span class="fname">First Name <span class="required">*</span></span>
-		<input type="text" name="fname">
-	  </label>
-	  <label>
-		<span class="lname">Last Name <span class="required">*</span></span>
-		<input type="text" name="lname">
-	  </label>
-	  <label>
-		<span>Email Address <span class="required">*</span></span>
-		<input type="email" name="city"> 
-	  </label>
-	</form>
-	<div class="Yorder">
-	  <table>
-		<tr>
-		  <th>Product</th>
-		  <th>Quantity</th>
-		  <th>Total</th>
-		  <th></th>
-		</tr>
-		<tr *ngFor="let book of booksInCart">
-		  <td>{{book.title}}</td>
-		  <td>{{book.quantityToBuy}}</td>
-		  <td>{{book.sellPrice * book.quantityToBuy}}</td>
-		  <td>
-			  <button class="button fancy-button" (click)="removeFromCart(book)">
-				  <i class="material-icons-outlined">delete</i></button>
-		  </td>
-		</tr>
-	  </table><br> 
-	  <div class="total">
-		<h2 style="text-align: center;">Total: {{calculateTotalPrice()}} €</h2>
-		<h3 style="text-align: center;">Shipping: {{calculateShipping()}} €</h3>
-	  </div>
-	  <button type="button" class="button fancy-button" (click)="makeSale(booksInCart)">
-		  <i class="material-icons-outlined">shopping_cart</i>
-		  Checkout
-	  </button>
-	</div>
-   </div>
-  </div>
+<app-navbar></app-navbar>
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+        <div class="books">
+            <table class="table table-striped"
+            *ngIf="total > 1">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of booksInfo; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.sellPrice }} €</td>
+                        <td>{{ getQuantity(book) }}</td>
+                        <td>
+                            <button mat-icon-button 
+                            (click)="removeFromCart(book)">
+                                <mat-icon>remove_shopping_cart</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <button mat-icon-button *ngIf="total > 1"
+            (click)="clearCart()">Clear Cart
+                <mat-icon>remove_shopping_cart</mat-icon>
+            </button>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="checkout">
+            <div class="checkout-details">
+                <h2 class="checkout-title">Checkout</h2>
+                <div class="checkout-total">
+                    <p class="total-price">Total:
+                        <strong>
+                        {{ calculateTotal() }} €
+                        </strong>
+                    </p>
+                    <p class="shipping">Shipping:
+                        <strong>
+                        {{ calculateShipping() }} €
+                        </strong>
+                    </p><br>
+                    <p>You will receive this many points:</p>
+                    <p class="points">
+                        <strong>
+                            {{ calculateGainedPoints() }} points
+                        </strong>
+                    </p><br>
+                </div>
+            </div>
+            <div class="checkout-button">
+                <button mat-raised-button color="secondary" (click)="checkout()">Buy the books!</button>
+            </div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

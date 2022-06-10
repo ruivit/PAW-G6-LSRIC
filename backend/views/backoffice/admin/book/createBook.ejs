@@ -14,7 +14,7 @@
 			<div class="errormessage"><%= locals.message %></div>
 			<div class="input-container ic1">
 				<input type="text" name="title" id="title" value="<%= locals.oldata.title %>"
-				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50" class="input">
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="500" class="input">
 				<div class="cut"></div>
 				<label for="title" class="placeholder">Title</label>
 			</div>
@@ -31,6 +31,7 @@
 					<option value="Business">Business</option>
 					<option value="Children">Children</option>
 					<option value="Comics">Comics</option>
+					<option value="Sport">Sport</option>
 					<option value="Cookbooks">Cookbooks</option>
 					<option value="Dictionaries">Dictionaries</option>
 					<option value="Fantasy">Fantasy</option>
@@ -56,7 +57,7 @@
 			</div>
 			<div class="input-container ic2">
 				<input type="text" name="resume" class="input" id="resume" value="<%= locals.oldata.resume %>" 
-				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+				required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="500000">
 				<div class="cut cut-long"></div>
 				<label for="resume" class="placeholder">Resume</label>
 			</div>
@@ -82,13 +83,13 @@
 			</div>
 			<div class="input-container ic2">
 				<input name="sellPrice" class="input" type="text" id="sellPrice" value="<%= locals.oldata.sellPrice %>" 
-				required pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+				required pattern="^[1-9]{1}[0-9]{0,15}" minlength="1" maxlength="15">
 				<div class="cut cut-long"></div>
 				<label for="sellPrice" class="placeholder">Sell Price</label>
 			</div>
 			<div class="input-container ic2">
 				<input name="buyPrice" class="input" type="text" id="buyPrice" value="<%= locals.oldata.buyPrice %>"
-				required pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+				required pattern="^[1-9]{1}[0-9]{0,15}" minlength="1" maxlength="15">
 				<div class="cut cut-long"></div>
 				<label for="buyPrice" class="placeholder">Buy Price</label>
 			</div>
@@ -110,7 +111,7 @@
 				<div class="errormessage"><%= locals.message %></div>
 				<div class="input-container ic1">
 					<input name="title" class="input" type="text" placeholder=" "
-					required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="50">
+					required pattern="[a-zA-Z0-9].+" minlength="5" maxlength="500">
 					<div class="cut"></div>
 					<label for="title" class="placeholder">Title</label>
 				</div>
@@ -125,6 +126,7 @@
 					<option value="Art">Art</option>
 					<option value="Biography">Biography</option>
 					<option value="Business">Business</option>
+					<option value="Sport">Sport</option>
 					<option value="Children">Children</option>
 					<option value="Comics">Comics</option>
 					<option value="Cookbooks">Cookbooks</option>
@@ -152,7 +154,7 @@
 				</div>
 				<div class="input-container ic2">
 					<input name="resume" class="input" type="text" placeholder=" " required
-					pattern="[a-zA-Z0-9].+" minlength="5" maxlength="500">
+					pattern="[a-zA-Z0-9].+" minlength="5" maxlength="500000">
 					<div class="cut cut-long"></div>
 					<label for="resume" class="placeholder">Resume</label>
 				</div>
@@ -178,13 +180,13 @@
 				</div>
 				<div class="input-container ic2">
 					<input name="sellPrice" class="input" type="text" placeholder=" " required
-					pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+					pattern="^[1-9]{1}[0-9]{0,15}" minlength="1" maxlength="15">
 					<div class="cut cut-long"></div>
 					<label for="sellPrice" class="placeholder">Sell Price</label>
 				</div>
 				<div class="input-container ic2">
 					<input name="buyPrice" class="input" type="text" placeholder=" " required
-					pattern="^[1-9]{1}[0-9]{0,9}" minlength="1" maxlength="5">
+					pattern="^[1-9]{1}[0-9]{0,15}" minlength="1" maxlength="15">
 					<div class="cut cut-long"></div>
 					<label for="buyPrice" class="placeholder">Buy Price</label>
 				</div>

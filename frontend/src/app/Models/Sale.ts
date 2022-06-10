@@ -1,20 +1,27 @@
 import { Book } from "./Book";
 
 export class Sale {
-    constructor(
-        public clientUsername: String, 
-        public books: Array<Book>,
-        public quantity: Array<number>,
-        public total: Number, 
-        public gainedPoints: Number,
-        public date: Date,
-        public shipping: Number) {
-            this.clientUsername = clientUsername;
-            this.books = books;
-            this.quantity = quantity;
-            this.total = total;
-            this.gainedPoints = gainedPoints;
-            this.date = date;
-            this.shipping = shipping;
-        }
+    _id: number;
+    clientUsername: String;
+    books: String;
+    booksInfo: Array<any>;
+    total: Number;
+    gainedPoints: Number;
+    date: Date;
+    dateString: String;
+    shipping: Number;
+
+    constructor(sale: Sale) {
+        this._id = sale._id;
+        this.clientUsername = sale.clientUsername;
+        this.books = sale.books;
+        this.booksInfo = sale.booksInfo;
+        this.total = sale.total;
+        this.gainedPoints = sale.gainedPoints;
+        this.date = sale.date;
+        this.dateString = sale.dateString;
+        this.shipping = sale.shipping;
     }
+}
+
+

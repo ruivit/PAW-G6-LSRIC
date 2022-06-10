@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-//var schema  = require('./clientModel');
-
 var Schema = mongoose.Schema;
 
 var TempBookSchema = new Schema({
@@ -12,7 +10,7 @@ var TempBookSchema = new Schema({
   isbn: { type: Number, required: true },
   dateAdded: { type: Date, required: false, default: Date.now },
   dateString: { type: String, required: false, default: '' },
-  provider: { type: String, required: false, default: '' },
+  provider: { type: String, required: true},
   sellPrice: { type: Number, required: true },
 }, { collection: 'TempBooks' });
 

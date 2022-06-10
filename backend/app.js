@@ -36,6 +36,11 @@ var cors = require('cors');
 app.use(cors());
 
 
+// Swagger
+var swaggerUi = require('swagger-ui-express');
+var swaggerDocument = require('./swagger.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Icons and bootstrap
 app.use('/favicon.ico', express.static('public/images/favicon.ico'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));

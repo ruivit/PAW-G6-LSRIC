@@ -1,0 +1,37 @@
+table th {
+   text-align: center;
+}
+
+.table {
+   margin: auto;
+   width: 100% !important;
+}
+
+.data {
+   font-weight:normal;
+}
+
+.layout {
+   width: 100%;
+
+   display: grid;
+   grid:
+      "header header header" 250px "leftSide body ." 75% ". . ." auto / 60% 40% 0px;
+   gap: 8px;
+   padding-left: 1%;
+   padding-right: 1%;
+   padding-top: 1%;
+   padding-bottom: 1%;
+}
+
+.header {
+   grid-area: header;
+}
+
+.leftSide {
+   grid-area: leftSide;
+}
+
+.body {
+   grid-area: body;
+}

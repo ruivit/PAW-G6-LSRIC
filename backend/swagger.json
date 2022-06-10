@@ -1,0 +1,159 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API G06",
+        "description": "API",
+        "version": "2.0.0"
+    },
+    "host": "https://localhost:3000",
+    "basePath": "/clientapi",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/form-data"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Visitor Page",
+                "responses": {
+                    "200": {
+                        "description": "Visitor Page - no login required"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "get": {
+                "description": "Login Page",
+                "responses": {
+                    "200": {
+                        "description": "Login successfull"
+                    }
+                }
+            },
+            "post": {
+                "description": "Login Request",
+                "parameters": [
+                    {
+                        "username": "username",
+                        "in": "formData",
+                        "description": "Username",
+                        "required": true
+                    },
+                    {
+                        "password": "password",
+                        "in": "formData",
+                        "description": "Password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful login"
+                    },
+                    "500": {
+                        "description": "Username or password invalid"
+                    }
+                }
+            }
+        },
+        "register": {
+            "get": {
+                "description": "Register Page",
+                "responses": {
+                    "200": {
+                        "description": "Register Page"
+                    }
+                }
+            },
+            "post": {
+                "description": "Register Request",
+                "parameters": [
+                    {
+                        "username": "username",
+                        "in": "formData",
+                        "description": "Username",
+                        "required": true
+                    },
+                    {
+                        "password": "password",
+                        "in": "formData",
+                        "description": "Password",
+                        "required": true
+                    },
+                    {
+                        "email": "email",
+                        "in": "formData",
+                        "description": "Email",
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Name",
+                        "required": true
+                    },
+                    {
+                        "address": "address",
+                        "in": "formData",
+                        "description": "address",
+                        "required": true
+                    },
+                    {
+                        "birthDate": "birthDate",
+                        "in": "formData",
+                        "description": "birthDate",
+                        "required": true
+                    },
+                    {
+                        "phone": "phone",
+                        "in": "formData",
+                        "description": "phone number",
+                        "required": true
+                    },
+                    {
+                        "recommendedBy": "recommendedBy",
+                        "in": "formData",
+                        "description": "email of the recommender",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful registration"
+                    },
+                    "500": {
+                        "description": "Invalid Field"
+                    }
+                }
+            }
+        },
+        "/books": {
+            "get": {
+                "description": "Get Books",
+                "parameters": [
+                    {
+                        "type": "type",
+                        "in": "query",
+                        "description": "used or new",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recevied books"
+                    },
+                    "500": {
+                        "description": "Internal Error"
+                    }
+                }
+            }
+        }
+    }
+
+}

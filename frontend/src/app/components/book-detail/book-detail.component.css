@@ -1,0 +1,10 @@
+h1 {
+    text-align-last: center;  
+}
+h2 {
+    text-align-last: left;  
+}
+
+li {
+    list-style-type:none;
+}

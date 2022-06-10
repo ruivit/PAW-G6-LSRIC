@@ -1,145 +1,173 @@
-import { BrowserModule } from '@angular/platform-browser';
+//#region Modules
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BooksComponent } from './components/books/books.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './guard/auth.guard';
+import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
+//#endregion
 
 
-import { IndexComponent } from './components/index/index.component';
+//#region Components
+import { AppComponent } from './app.component';
 import { CartComponent } from './components/cart/cart.component';
-import { TopbarComponent } from './components/topbar/topbar.component';
-import { TopbarclientComponent } from './components/topbarclient/topbarclient.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { SellBookComponent } from './components/sell-book/sell-book.component';
-import { SearchComponent } from './components/search/search.component';
-import { MypurschasesComponent } from './components/mypurschases/mypurschases.component';
-import { MysoldbooksComponent } from './components/mysoldbooks/mysoldbooks.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { MyprofileComponent } from './components/myprofile/myprofile.component';
+import { VisitorComponent } from './components/visitor/visitor.component';
+import { NewBooksComponent } from './components/new-books/new-books.component';
+import { UsedBooksComponent } from './components/used-books/used-books.component';
+import { SearchedBooksComponent } from './components/searched-books/searched-books.component';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
 
+//#endregion
+
+//#region Services
+//#endregion
+
+//#region Style
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatRadioModule } from '@angular/material/radio'; 
-import {MatIconModule} from '@angular/material/icon'; 
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'; 
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { MatBadgeModule } from '@angular/material/badge';
+import { IgxIconModule } from 'igniteui-angular';
+//#endregion
 
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { AuthGuard } from './guard/auth.guard';
-
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
-import { IndexclientComponent } from './components/indexclient/indexclient.component';
-
+//#region Routes
 const appRoutes: Routes = [
   {
-  //url: localhost:4200/
-  path: '',
-  component: IndexComponent,
-  data: { title: 'Welcome to Library G6' }
+    //url: localhost:4200/
+    path: '',
+    component: VisitorComponent,
+    data: { title: 'Welcome to Library G6' }
   },
   {
-  //url: localhost:4200/library
-  path: 'library',
-  canActivate: [ AuthGuard ],
-  component: IndexclientComponent,
-  data: { title: 'Welcome to Library G6' }
+    //url: localhost:4200/client
+    path: 'newbooks',
+    component: NewBooksComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Welcome to Library G6' }
   },
   {
-  //url: localhost:4200/login
-  path: 'login',
-  component: LoginComponent,
-  data: { title: 'Login' }
+    //url: localhost:4200/client
+    path: 'usedbooks',
+    component: UsedBooksComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Welcome to Library G6' }
+  },
+  {
+    path: 'searchbooks',
+    component: SearchedBooksComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Welcome to Library G6' }
+  },
+  {
+    //url: localhost:4200/cart
+    path: 'cart',
+    component: CartComponent,
+    data: { title: 'Shopping Cart' }
+  },
+  {
+    //url: localhost:4200/myprofile
+    path: 'myprofile',
+    component: MyprofileComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'My Profile' }
   },
   {
     //url: localhost:4200/login
-    path: 'logout',
+    path: 'login',
     component: LoginComponent,
-    data: { title: 'Logout' }
+    data: { title: 'Login' }
   },
   {
-  //url: localhost:4200/sign-up
-  path: 'signup',
-  component: SignupComponent,
-  data: { title: 'Sign Up' }
+    //url: localhost:4200/signup
+    path: 'signup',
+    component: SignupComponent,
+    data: { title: 'Signup' }
   },
   {
-  //url: localhost:4200/cart
-  path: 'cart',
-  component: CartComponent,
-  data: { title: 'My Shopping Cart' }
-  },
-  {
-    //url: localhost:4200/search
-    path: 'search',
-    component: SearchComponent,
-    data: { title: 'Search Books' }
-  },
-  {
-    //url: localhost:4200/sellbook
+    //url: localhost:4200/sellBook
     path: 'sellbook',
     component: SellBookComponent,
-    data: { title: 'Sell Book' }
+    data: { title: 'Sell us a Book' }
   },
-  {
-  //url: localhost:4200/mypurschases
-  path: 'mypurschases',
-  component: MypurschasesComponent,
-  data: { title: 'My Purchases' }
-  },
-  {
-  //url: localhost:4200/mysoldbooks
-  path: 'mysoldbooks',
-  component: MysoldbooksComponent,
-  data: { title: 'My Sold Books' }
-  }
 ];
+//#endregion
 
 @NgModule({
   declarations: [
     AppComponent,
-    BooksComponent,
     CartComponent,
-    TopbarComponent,
-    IndexComponent,
+    NavbarComponent,
     SellBookComponent,
-    SearchComponent,
-    MypurschasesComponent,
-    MysoldbooksComponent,
     LoginComponent,
     SignupComponent,
-    IndexclientComponent,
-    TopbarclientComponent
+    MyprofileComponent,
+    VisitorComponent,
+    NewBooksComponent,
+    UsedBooksComponent,
+    SearchedBooksComponent,
+    BookDetailComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
-    FormsModule,
-    BrowserModule,
+    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
     HttpClientModule,
+    BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    MatButtonModule, MatInputModule, MatCardModule, MatFormFieldModule,MatGridListModule,MatSnackBarModule, BrowserAnimationsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatSnackBarModule,
     MatDatepickerModule,
     MatRadioModule,
     MatIconModule,
     MatDividerModule,
     MatToolbarModule,
-    FlexLayoutModule
-    ],
-    providers: [
-      {
+    FlexLayoutModule,
+    FormsModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    TooltipModule.forRoot(),
+    CarouselModule.forRoot(),
+    AccordionModule.forRoot(),
+    IgxIconModule,
+    MatButtonToggleModule,
+    MatBadgeModule
+  ],
+  providers: [
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
-      multi: true
-      }],
-    bootstrap: [AppComponent]
+      multi: true,
+    },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+  ],
+  bootstrap: [AppComponent],
 })
-
 export class AppModule { }

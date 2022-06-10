@@ -8,7 +8,7 @@ var UsedBookSchema = new Schema({
   genre:{ type: String, required: true },
   editor:{ type: String, required: true },
   resume: { type: String, required: true },
-  avaliation: { type: Number, required: false, default: 0 },
+  avaliation: { type: Number, required: false, default: 1 },
   isbn: { type: Number, required: true },
   dateAdded: { type: Date, required: false, default: Date.now },
   dateString: { type: String, required: false, default: '' },

@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <li class="nav-item">
+      <a class="navbar-brand" [routerLink]="['/']">
+        <div class="icon-sample">
+          <igx-icon>home</igx-icon>
+        </div>
+      </a>
+    </li>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']" *ngIf="!loggedIn">
+            <div class="icon-sample">
+              <igx-icon>login</igx-icon>
+            </div>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/newbooks']"
+          (click)="getNewBooks()" *ngIf="loggedIn">New Books
+            <div class="icon-sample">
+              <igx-icon>auto_stories</igx-icon>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/usedbooks']"
+          (click)="getUsedBooks()" *ngIf="loggedIn">Used Books
+            <div class="icon-sample">
+              <igx-icon>auto_stories</igx-icon>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/searchbooks']"
+          (click)="searchBooks()" *ngIf="loggedIn">Search Books
+            <div class="icon-sample">
+              <igx-icon>search</igx-icon>
+            </div>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="loggedIn"
+          [routerLink]="['/myprofile']">My Profile
+            <div class="icon-sample">
+              <igx-icon>account_circle</igx-icon>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="loggedIn"
+          [routerLink]="['/sellbook']">Sell Your Books
+            <div class="icon-sample">
+              <igx-icon>currency_exchange</igx-icon>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="loggedIn"
+          [routerLink]="['/cart']">Cart
+            <div class="icon-sample">
+              <mat-icon matBadge={{itemsInCart}} matBadgeColor="warn">shopping_basket</mat-icon>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn">
+          <a class="nav-link" (click)="logout()" [routerLink]="['/logout']">Logout
+            <div class="icon-sample">
+              <igx-icon>logout</igx-icon>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

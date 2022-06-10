@@ -1,0 +1,101 @@
+<app-navbar></app-navbar>
+<br>
+
+<section class="layout">
+    <div class="col-md-6 header">
+        <div id="card-client-date">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">My Points</th>
+                        <th scope="col">Number of Purschases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="data">{{ clientData.name }}</th>
+                        <th class="data">{{ clientData.email }}</th>
+                        <th class="data">{{ clientData.phone }}</th>
+                        <th class="data">{{ clientData.address }}</th>
+                        <th class="data">{{ clientData.points }}</th>
+                        <th class="data">{{ clientData.totalBuys }}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+
+            <!-- updatepassword -->
+
+            <div class="container">
+                <form [formGroup]="form" (ngSubmit)="submit()">
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input formControlName="password" id="password" type="password" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <input formControlName="password2" id="password2" type="password"
+                            class="form-control">
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Change Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Purschases -->
+    <div class="col-md-6 leftSide">
+        <div id="card-sale-date">
+            <br><h1>My last 5 Purschases</h1>
+            <div class="card" *ngFor="let sale of clientSales; index as i">
+                <accordion [isAnimated]="true">
+                    <accordion-group heading={{sale.dateString}}>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Shipping</th>
+                                    <th scope="col">Points Gained</th>
+                                    <th scope="col">Books</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>{{ sale.total }}</td>
+                                <td>{{ sale.shipping }}</td>
+                                <td>{{ sale.gainedPoints }}</td>
+                                <table class="table table-bordered table-hover text-center">
+                                    <tbody>
+                                        <tr *ngFor="let book of sale.booksInfo">
+                                            <td>{{book.title}} - {{book.quantity}}x</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </tbody>
+                        </table>
+                    </accordion-group>
+                </accordion>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 body">
+        <div id="card-sale-date">
+            <br><h1>My last 5 Sold Books</h1>
+            <div class="card" *ngFor="let book of clientSoldBooks;">
+                <accordion [isAnimated]="true">
+                    <accordion-group heading={{book.dateString}}>
+                        Title: {{book.title}}<br>
+                        Sold by {{book.buyPrice}}€
+                    </accordion-group>
+                </accordion>
+            </div>
+        </div>
+    </div>
+</section>
