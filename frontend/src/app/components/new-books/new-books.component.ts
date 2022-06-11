@@ -43,7 +43,6 @@ export class NewBooksComponent implements OnInit {
     this.restService.getBooks("new").subscribe(
       (data: Book[]) => {
         this.books = data;
-        console.log(this.books);
       });
     if (localStorage.getItem('Token') != null) this.isLogged = true;
   }

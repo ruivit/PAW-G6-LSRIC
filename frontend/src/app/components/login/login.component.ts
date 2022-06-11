@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this.User.userLogin(this.loginForm.value).subscribe(
       (data: any) => {
-        console.log(data);
+
         let token = data.token;
         localStorage.setItem('Token', token);
         localStorage.setItem('clientID', data.clientID);
@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         if (err.error.msg) {
-          console.log(err.error.msg);
           this.snackBar.open(err.error.msg, 'Ups');
         } else {
           this.snackBar.open(err.error.message, 'Ok', {

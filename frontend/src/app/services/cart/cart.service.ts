@@ -28,7 +28,7 @@ export class CartService {
       if (count < book.stock) {
         // save in localStorage
         this.items.push(book);
-        window.localStorage.setItem("cart", JSON.stringify(this.items));
+        localStorage.setItem("cart", JSON.stringify(this.items));
         return true;          
       } else {
         return false;
@@ -42,7 +42,7 @@ export class CartService {
     for (let i = 0; i < this.items.length; i++) {
       if (this.items[i]._id == book._id) {
         this.items.splice(i, 1);
-        window.localStorage.setItem("cart", JSON.stringify(this.items));
+        localStorage.setItem("cart", JSON.stringify(this.items));
         break;
       }
     }
@@ -59,8 +59,12 @@ export class CartService {
     return count;
   }
 
-  getItemsInCart(): Book[] {
+  getItemsInfo(): Book[] {
     return JSON.parse(localStorage.getItem("cart") || "[]");
+  }
+
+  getItemsInCart(): Book[] {
+    return this.items;
   }
 
   getNumberOfItemsInCart(): number {

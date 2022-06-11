@@ -30,7 +30,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.books = this.cartService.getItemsInCart();
+    this.books = this.cartService.getItemsInfo();
 
     // if the books are empty, send message and do nothing
     if (this.books.length === 0) { 
@@ -65,6 +65,7 @@ export class CartComponent implements OnInit {
 
     // Calculate the total
     this.calculateTotal();
+
   }
 
 
@@ -201,17 +202,14 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    this.snackBar.open('Checkout Successful', '', {
-      duration: 2000,
-      verticalPosition: 'top'
-    });
-    this.cartService.clearCart();
+    // convert the books to JSON
+    let booksJSON = JSON.stringify(this.cartService.getItemsInCart());
 
     let sale: any;
     sale = new Sale({
       _id: 0,
       clientUsername: localStorage.getItem('username') || '',
-      books: JSON.stringify(this.books),
+      books: booksJSON,
       booksInfo: Array<any>(),
       total: this.calculateTotal(),
       gainedPoints: this.calculateGainedPoints(),

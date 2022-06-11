@@ -64,7 +64,6 @@ export class SignupComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         if (err.error.msg) {
-          console.log(err.error.msg);
           this.snackBar.open(err.error.msg, 'Ok');
         } else {
           this.snackBar.open(err.error.msg, 'Ok', {

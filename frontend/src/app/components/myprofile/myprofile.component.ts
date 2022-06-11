@@ -55,6 +55,7 @@ export class MyprofileComponent implements OnInit {
       return;
     }
 
+    this.form.value.username = JSON.stringify(localStorage.getItem('username')).toString().replace(/\"/g, "");
     this.rest.updatePassword(this.form.value).subscribe(
       (data: any) => { },
       (err: HttpErrorResponse) => {

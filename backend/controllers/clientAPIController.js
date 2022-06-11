@@ -300,6 +300,7 @@ exports.client_update_password = function (req, res) {
 
 
 exports.client_make_sale_post = async function (req, res) {
+
     // Make the sale
     var sale = new Sale({
         clientUsername: req.body.clientUsername.toString(),
@@ -341,7 +342,6 @@ exports.client_make_sale_post = async function (req, res) {
     // Save the sale
     sale.save(async function (err) {
         if (err) {
-            console.log(err);
             res.status(500).json(err);
         }
     }); 
