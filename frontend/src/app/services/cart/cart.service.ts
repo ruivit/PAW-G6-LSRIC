@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Book } from '../../Models/Book';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BLOCK_MARKER } from '@angular/localize/src/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class CartService {
         count++;
       }
     }
-    console.log(this.items);
+
     if (book.stock > 0) {
       // compare the book.stock with the count
       if (count < book.stock) {
@@ -38,6 +37,7 @@ export class CartService {
     return false;
   }
 
+  // remove a book from the cart
   removeFromCart(book: Book): void {
     for (let i = 0; i < this.items.length; i++) {
       if (this.items[i]._id == book._id) {
@@ -48,6 +48,7 @@ export class CartService {
     }
   }
 
+  // get the quantity of a book in the cart
   getQuantity(book: Book): number {
     let count = 0;
     for (let i = 0; i < this.items.length; i++) {

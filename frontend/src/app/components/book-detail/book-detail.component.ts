@@ -18,8 +18,6 @@ export class BookDetailComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
-
-    //private path: '../../backend/uploads/bookCovers'
   ) {
 
   }

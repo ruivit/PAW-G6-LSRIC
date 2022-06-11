@@ -21,8 +21,8 @@ export class SellBookComponent {
   genres = ['Fiction', 'Non-Fiction', 'Children', 'Others', 'Biography', 'Poetry', 'Fantasy', 'Thriller', 'Horror', 'Mystery', 'Romance', 'Self-Help', 'Health', 'Travel', 'Science', 'History', 'Religion', 'Philosophy', 'Psychology', 'Business', 'Comics', 'Art', 'Cooking', 'Drama', 'Education', 'Engineering', 'Finance', 'Health', 'Law', 'Medicine', 'Music', 'Science', 'Sports', 'Technology', 'Travel', 'Youth'];
   genreHasError = true;
 
-  // Create a model of an UsedBook
 
+  // Create a model of an UsedBook
   tempBookModel = new TempBook('Title', 'Author', 'Genre', 'Editor', 'Resume', 
   0, new Date(Date.now()), '', localStorage.getItem('username') || '', 0);
   
@@ -52,7 +52,6 @@ export class SellBookComponent {
     this.snackBar.open("Your proposal was submited.", '', { duration: 3000 });
   }
 
-  
   ngOnInit(): void {
   }
 

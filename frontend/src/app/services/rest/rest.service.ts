@@ -28,6 +28,7 @@ export class RestService {
   ) { }
 
   getBooks(type: string): Observable<Book[]> {
+    // url: https://localhost/clientapi/getBooks?type=type
     return this.http.get<Book[]>(api + '/books?type=' + type);
   }
 
@@ -87,8 +88,6 @@ export class RestService {
   }
 
   sellBook(tempBookModel: TempBook, selectedFile: any) {
-    console.log('restService');
-    console.log(tempBookModel);
     // url: https://localhost/clientapi/sellbook
     return this.http.post(api + '/sellbook', { tempBookModel, selectedFile });
 

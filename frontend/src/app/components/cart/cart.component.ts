@@ -35,9 +35,10 @@ export class CartComponent implements OnInit {
     // if the books are empty, send message and do nothing
     if (this.books.length === 0) { 
       this.snackBar.open('Your cart is empty', '', { duration: 5000 });
-    return;
+      return;
     }
 
+    // Save the Client Points, the Points and Discount Table
     this.restService.getClientPoints().subscribe(data => {
       localStorage.setItem('clientPoints', JSON.stringify(data));
     });
@@ -49,6 +50,7 @@ export class CartComponent implements OnInit {
       localStorage.setItem('discountTable', JSON.stringify(data));
     });
 
+    // Remove and found duplicated objects (books)
     this.booksInfo = this.books;
     var size = this.booksInfo.length;
     for ( var i = 0; i < size; i++ ) {
@@ -61,17 +63,22 @@ export class CartComponent implements OnInit {
       }
     }
 
+    // Calculate the total
     this.calculateTotal();
   }
 
+
   calculateTotal() {
+    // General total, price by book 
     this.total = 0;
     for (let book of this.books) {
       this.total += book.sellPrice;
     }
 
+    // Load the discountTable
     let discountTable = JSON.parse(localStorage.getItem('discountTable') || '{}');
 
+    // Load and calculate the discount by ageType
     let ageType = localStorage.getItem('ageType');
     let discountAge = 0;
     switch (ageType) {
@@ -93,11 +100,14 @@ export class CartComponent implements OnInit {
       }
     }
 
+    // If there is a promotion active, calculate the discount
     let promotionDiscount = 0;
     if (discountTable.activePromotion) {
       promotionDiscount = discountTable.discountPromotion;
+      this.snackBar.open('Promotion active - discount : ' + promotionDiscount + '%', '', { duration: 500 }); 
     }
 
+    // Calculate the total with the discounts
     this.total -= promotionDiscount;
     this.total -= this.calculateShipping();
     this.total -= discountAge;
@@ -108,6 +118,7 @@ export class CartComponent implements OnInit {
 
     return this.total;
   }
+
 
   calculateGainedPoints() {
     let pointsTable = JSON.parse(localStorage.getItem('pointsTable') || '{}');
@@ -121,9 +132,9 @@ export class CartComponent implements OnInit {
     }
 
     let gainedPoints = 0;
-    // percentage of points for each sale calculated by the formula: total * pointsTable.percentagePerPurchase
+    // percentage of points for each sale calculated by the formula: 
+    // total * pointsTable.percentagePerPurchase
     let percentagePoints = this.calculateTotal() * pointsTable.percentagePerPurschase;
-    console.log("Tabela de Pontos" + pointsTable);
 
     // Points if the promotion is active
     let promotionPoints = 0;
@@ -139,12 +150,14 @@ export class CartComponent implements OnInit {
     return gainedPoints;
   }
 
+
   calculateShipping() {
     let pointsTable = JSON.parse(localStorage.getItem('pointsTable') || '{}');
     let shippingPoints = pointsTable.shippingPoints;
     let clientPoints = JSON.parse(localStorage.getItem('clientPoints') || '{}');
     let shipping = 0;
 
+    // If the client has the necessary points, the shipping is free
     if (clientPoints.shippingPoints >= shippingPoints) {
       return 0;
     } else {
@@ -154,16 +167,19 @@ export class CartComponent implements OnInit {
   }
 
 
+  // Get the total of books in the cart
   getQuantity(book: Book) {
     return this.cartService.getQuantity(book);
   }
 
+  // Remove a book from the cart
   removeFromCart(book: Book) {
     this.cartService.removeFromCart(book);
     this.books = this.cartService.getItemsInCart();
     this.calculateTotal();
   }
 
+  // Clear the cart
   clearCart() {
     this.cartService.clearCart();
     this.books = this.cartService.getItemsInCart();
@@ -177,6 +193,8 @@ export class CartComponent implements OnInit {
     }, 2000);
   }
 
+
+  // Buy the books in the cart
   checkout() {
     if ( this.books.length === 0 ) {
       this.snackBar.open('Your cart is empty', '', { duration: 5000 });
@@ -208,13 +226,14 @@ export class CartComponent implements OnInit {
       formParams.append(key, sale[key]);
     }
 
+    // Send the sale to the server and redirect to the home page
     this.restService.checkout(formParams).subscribe(
       (data: any) => {
         this.snackBar.open(data.msg, '', {
           duration: 3000,
           verticalPosition: 'top',
         });
-        this.router.navigate(['/newbooks']);
+        this.router.navigate(['/']);
       },
       (err: HttpErrorResponse) => {
         if (err.error.msg) {
@@ -226,6 +245,8 @@ export class CartComponent implements OnInit {
         }
       }
     );
+
+    // Clear the cart
     this.cartService.clearCart();
   }
 

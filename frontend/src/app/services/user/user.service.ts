@@ -10,11 +10,16 @@ const api = 'https://localhost:3000/clientapi';
 
 export class UserService {
 
+  constructor(private http: HttpClient,
+    private router: Router) { }
+
   registerNewUser(payload: any) {
+    // url: https://localhost/clientapi/register
     return this.http.post(api + '/register', payload);
   }
 
   userLogin(payload: any) {
+    // url: https://localhost/clientapi/login
     return this.http.post(api + '/login', payload);
   }
 
@@ -28,7 +33,4 @@ export class UserService {
     return localStorage.getItem('Token') !== null;
   }
 
-  constructor(private http: HttpClient,
-    private router: Router) { }
-  
 }

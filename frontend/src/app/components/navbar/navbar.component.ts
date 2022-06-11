@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   loggedIn = this.userService.isLoggedIn();
   itemsInCart = this.cartService.getNumberOfItemsInCart();
 
+  // Subscribe to the navbarService to know when the cart has changed
   notifierSubscription: Subscription = 
   this.navbarService.subjectNotifier.subscribe(notified => {
     this.itemsInCart = this.cartService.getNumberOfItemsInCart();

@@ -151,14 +151,14 @@ exports.client_new_books_get = function (req, res) {
             res.status(404).json({ msg: 'Invalid type' });
             break;
     }
-}; // Get all the books
+}; // Get the new books by type
 
 
 exports.client_register_post = async function (req, res) {
 
     // find client by username and/or email
     var duplClient = await Client.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] });
-    console.log(req.body.birthDate + '\n' + 'this is the birthdate');
+
     if (duplClient) {
         res.status(409).json({ msg: 'Client already exists' });
     } else {
@@ -186,7 +186,7 @@ exports.client_register_post = async function (req, res) {
             
             recommendedClient.points += pointsGained;
             recommendedClient.save();
-            console.log(client);
+
             client.save(function (err) { if (err) { return err; } });
             res.status(201).json({
                 message: 'Registration Successfull, you really have a great friend!',
@@ -195,26 +195,27 @@ exports.client_register_post = async function (req, res) {
         } else {
             
             client.save(function (err) { if (err) { return err; } });
-            console.log(client);
+
             res.status(201).json({
                 message: 'Registration Successfull',
                 wasRecommended: false
             });
         }
     }
-}; // Register a new client
+}; // Register a new client and add points to the recommended client
+
 
 exports.client_login_post = async function (req, res) {
     var client = await Client.findOne({ client: req.body.username });
 
     Client.findOne({ username: req.body.username }, function (err, client) {
         if (err) { res.status(500).json(err); }
-        else if (!client) { res.status(404).json({ message: 'Cliente não encontrado' }); }
+        else if (!client) { res.status(404).json({ message: 'Client not found' }); }
         else {
             if (client.checkPassword(req.body.password)) {
                 res.status(200).json(
                     {
-                        message: 'Login efetuado com sucesso',
+                        message: 'Login Successfull',
                         username: client.username,
                         name: client.name,
                         ageType: client.ageType,
@@ -226,7 +227,7 @@ exports.client_login_post = async function (req, res) {
                         phone: client.phone,                
                     });
             } else {
-                res.status(401).json({ message: 'Password errada' });
+                res.status(401).json({ message: 'Wrong Password' });
             }
         }
     });
@@ -246,10 +247,8 @@ exports.client_login_post = async function (req, res) {
         sendMailClientLogin(titles, client);
     }, 2000);
      */// 
-    
-    //console.log(books);
 
-}; // Login a client
+}; // Login process for clients
 
 
 
@@ -262,26 +261,27 @@ exports.client_points_get = function (req, res) {
                 res.status(200).json(client.points);
             }
         });
-}
+}; // Get the points of the client
 
 
 exports.points_table_get = async function (req, res) {
     var pointsTable = await Points.findById(pointsIDcollection);
     res.status(200).json(pointsTable);
-};
+}; // Get the points table
 
 exports.discount_table_get = async function (req, res) {
     var discountTable = await Discount.findById(discountIDcollection);
     res.status(200).json(discountTable);
-};
+}; // Get the discount table
 
 
 exports.client_update_password = function (req, res) {
     console.log(req.body);
+
     var salt = crypto.randomBytes(16).toString('hex');
 
     // Hashing user's salt and password with 1000 iterations, 
-    console.log(req.body.password);
+
     var newPasswordHash = crypto.pbkdf2Sync(req.body.password, salt,
         1000, 64, process.env.ENCRYPTION).toString('hex');
 
@@ -295,7 +295,7 @@ exports.client_update_password = function (req, res) {
             }
         }
     );
-}; // Change the password of a client
+}; // Change the password of the client
 
 
 
@@ -312,9 +312,10 @@ exports.client_make_sale_post = async function (req, res) {
         shipping: req.body.shipping,
     });
 
-    res.status(201).json({ msg: 'Sale Successfull! +' + sale.gainedPoints + ' points' });
+    res.status(201).json({ msg: 'Sale Successfull! +' + 
+    sale.gainedPoints + ' points' });
 
-    // Save the book info
+    // Save the book title into the booksInfo Array
     for ( var b = 0; b < sale.books.length; b++ ) {
         var book = await Book.findById(sale.books[b]);
        
@@ -410,13 +411,13 @@ exports.client_sell_tempbook_post = function (req, res) {
         }
     });
 
-    // Sell a tempBook
-
-         // save the cover
-         if (req.file) {
-            fs.writeFileSync("./public/images/books/" + tempBook._id + ".jpg", req.file.buffer);
-        }
+    // Save the Image
+    if (req.file) {
+        fs.writeFileSync("./public/images/books/" + 
+        tempBook._id + ".jpg", req.file.buffer);
+    }
      
+    // Send the email to the administrador that there is a new proposal
     sendMailClient(tempBook);
     setTimeout(function () {
         sendMailAdmin(tempBook);
@@ -448,6 +449,7 @@ exports.client_specific_sale_get = async function (req, res) {
     res.status(200).json(sale);
 }; // Get a specific sale made by the client
 
+
 exports.client_soldbooks_get = function (req, res) {
     UsedBook.find({ provider: req.query.username }, function (err, usedBooks) {
         if (err) {
@@ -467,7 +469,7 @@ exports.client_search_get = function (req, res) {
         case "new":
             if (RegExp(/^[0-9]+$/).test(term)) {
                 Book.find({ isbn: term }, function (err, books) { 
-                    console.log("isbn " + term);
+
                     if (err) { res.status(500).json(err); }
                     else { res.status(200).json(books); }
                 });
@@ -510,11 +512,11 @@ exports.client_search_get = function (req, res) {
             });
             break;
         }
-}; // Search for books
+}; // Search for books by type and term
 
 
 exports.client_rate_book = async function (req, res) {   
-    console.log(req.query);
+
     var book = await Book.findOne({ _id: req.query.bookId });
 
     if (req.query.like == 1) {

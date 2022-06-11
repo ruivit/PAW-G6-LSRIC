@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-// Quando o cliente faz login, carrega os dados do cliente no localStorage
-
+  // Quando o cliente faz login, carrega os dados do cliente no localStorage
   loginUser() {
     this.User.userLogin(this.loginForm.value).subscribe(
       (data: any) => {

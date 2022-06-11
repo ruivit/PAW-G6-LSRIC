@@ -75,14 +75,14 @@ export class MyprofileComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
-    console.log(this.clientData);
-
+    // Load client sales
     this.rest.getClientSales().subscribe(
       (data: any) => {
         this.clientSales = data;
       }
     );
+
+    // Load client sold books
     this.rest.getClientSoldBooks().subscribe(
       (data: any) => {
         this.clientSoldBooks = data;
@@ -90,10 +90,12 @@ export class MyprofileComponent implements OnInit {
     );
   }
 
+  // Get client sales
   getClientSales() {
     return this.clientSales;
   }
 
+  // Get client sold books
   getClientSoldBooks() {
     return this.clientSoldBooks;
   }

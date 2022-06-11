@@ -67,7 +67,7 @@ export class SearchedBooksComponent implements OnInit {
 
 
   addToCart(book: Book) {
-    if (this.cartService.addToCart(book)) {
+    if ( this.cartService.addToCart(book) ) {
       this.snackBar.open('Book added to cart', '', { duration: 2000 });
     } else {
       this.snackBar.open('Out of stock...', '', { duration: 5000 });
@@ -101,7 +101,7 @@ export class SearchedBooksComponent implements OnInit {
     return stars;
   }
 
-
+ // Show book details
   openDialog(book: Book) {
     this.dialog.open(BookDetailComponent, {
       data: {

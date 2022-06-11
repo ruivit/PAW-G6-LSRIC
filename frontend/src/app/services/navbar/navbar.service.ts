@@ -7,11 +7,13 @@ import { Subject } from 'rxjs';
 })
 export class NavbarService {
 
+  // Observable string sources
   subjectNotifier: Subject<null> = new Subject<null>();
 
   constructor() { }
 
   notify() {
+    // Notify any observers about the change in the cart
     this.subjectNotifier.next(null);
   }
 }

@@ -83,7 +83,7 @@ export class NewBooksComponent implements OnInit {
     return stars;
   }
 
-
+  // Show the book detail
   openDialog(book: Book) {
     this.dialog.open(BookDetailComponent, {
       data: {
