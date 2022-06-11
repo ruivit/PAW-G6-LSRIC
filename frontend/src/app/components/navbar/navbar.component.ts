@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { NavbarService } from 'src/app/services/navbar/navbar.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-navbar',
@@ -28,6 +29,7 @@ export class NavbarComponent implements OnInit {
     private userService: UserService,
     private cartService: CartService,
     private navbarService: NavbarService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
@@ -37,6 +39,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.userService.logout();
+    this.snackBar.open('You have been logged out', '', { duration: 3000 });
   }
 
   getNewBooks() {

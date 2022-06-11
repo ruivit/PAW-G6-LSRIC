@@ -20,7 +20,7 @@ router.get('/discountTable', clientAPIController.discount_table_get);
 
 router.post('/makeSale', multer().none(), clientAPIController.client_make_sale_post);
 
-router.post('/sellbook', multer().none(), clientAPIController.client_sell_tempbook_post);
+router.post('/sellbook', multer().single('image'), clientAPIController.client_sell_tempbook_post);
 
 router.get('/clientSales', multer().none(), clientAPIController.client_sales_get);
 router.get('/clientSoldBooks', multer().none(), clientAPIController.client_soldbooks_get);

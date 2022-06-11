@@ -32,10 +32,9 @@
             <th scope="col">Author</th>
             <th scope="col">Genre</th>
             <th scope="col">Editor</th>
-            <th scope="col">Resume</th>
             <th scope="col">ISBN</th>
-            <th scope="col">Provider</th>
-            <th scope="col">Buy Price</th>
+            <th scope="col">Client</th>
+            <th scope="col">Proposal Price</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -46,10 +45,9 @@
               <td data-label="Author"> <%=books[i].author%> </td>
               <td data-label="Genre"> <%=books[i].genre%> </td>
               <td data-label="Editor"> <%=books[i].editor%> </td>
-              <td data-label="Resume"> <%=books[i].resume%> </td>
               <td data-label="ISBN"> <%=books[i].isbn%> </td>
-              <td data-label="Provider"> <%=books[i].provider%> </td>
-              <td data-label="Buy Price"> <%=books[i].buyPrice%>€ </td>
+              <td data-label="Client"> <%=books[i].provider%> </td>
+              <td data-label="Proposal Price"> <%=books[i].sellPrice%> € </td>
               <td data-label="operations">
                 <form action="/backoffice/admin/usedbook/create/<%=books[i].id%>" method="get">
                   <input type="image" class="material-icons edit" name="_method" value="edit">

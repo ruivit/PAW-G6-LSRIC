@@ -23,7 +23,7 @@
 
                     <div class="form-group">
                         <label>Author</label>
-                        <input type="text" #author="ngModel" required pattern="[a-zA-Z0-9]{5,35}$"
+                        <input type="text" #author="ngModel" required pattern="[a-zA-Z0-9 ]{5,35}$"
                             [class.is-invalid]="author.invalid && author.touched" class="form-control" name="author"
                             [(ngModel)]="tempBookModel.author">
                         <div *ngIf="author.errors && (author.invalid || author.touched)">
@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <label>Editor</label>
-                        <input type="text" #editor="ngModel" required pattern="[a-zA-Z0-9]{5,35}$"
+                        <input type="text" #editor="ngModel" required pattern="[a-zA-Z0-9 ]{5,35}$"
                             [class.is-invalid]="editor.invalid && editor.touched" class="form-control" name="editor"
                             [(ngModel)]="tempBookModel.editor">
                         <div *ngIf="editor.errors && (editor.invalid || editor.touched)">
@@ -64,7 +64,7 @@
 
                     <div class="form-group">
                         <label>Resume</label>
-                        <input type="text" #resume="ngModel" required pattern="[a-zA-Z0-9]{5,500}$"
+                        <input type="text" #resume="ngModel" required pattern="[a-zA-Z0-9 ]{5,500}$"
                             [class.is-invalid]="resume.invalid && resume.touched" class="form-control" name="resume"
                             [(ngModel)]="tempBookModel.resume">
                         <div *ngIf="resume.errors && (resume.invalid || resume.touched)">
@@ -77,7 +77,7 @@
 
                     <div class="form-group">
                         <label>ISBN</label>
-                        <input type="number" #isbn="ngModel" required pattern="[0-9]{13,13}" minlength="13"
+                        <input type="text" #isbn="ngModel" required pattern="[0-9]{13,13}" minlength="13"
                             maxlength="13" [class.is-invalid]="isbn.invalid && isbn.touched" class="form-control"
                             name="isbn" [(ngModel)]="tempBookModel.isbn">
                         <div *ngIf="isbn.errors && (isbn.invalid || isbn.touched)">
@@ -97,12 +97,12 @@
 
                     <div class="container">
                         <div class="row mt-5">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="formFile" class="form-label">Upload file example</label>
-                                    <input (change)="onFileChanged($event)" class="form-control" type="file"
+                            <div class="col-md-12">
+                                <div class="mb-6">
+                                    <input (change)="onFileSelected($event)" class="form-control" type="file"
                                         id="formFile">
                                 </div>
+                                <br><br>
                             </div>
                         </div>
                     </div>

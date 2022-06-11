@@ -934,7 +934,7 @@ exports.backoffice_admin_usedbook_create_post = function (req, res) {
         if (promisesToDo[0]) {
             oldata = req.body;
             books = [];
-            console.log(oldata,"erro de isbn");
+
             res.render('backoffice/admin/proposals/indexProposals',
             { books: books, message: "We already have this book in our used book stock." });
         } else {
@@ -1028,11 +1028,16 @@ exports.backoffice_admin_usedbook_create_post = function (req, res) {
                 fs.rename('./public/images/books/' + tempID + '.jpg', './public/images/books/' + book._id + '.jpg', function (err) {
                     if (err) { console.log(err); }
                 });
+
+                // Remove the book from the temporary book collection
+                TempBook.findByIdAndDelete(tempID, function (err) {
+                    if (err) { res.status(500).json(err); }
+                });
+
             }
         }); // UsedBook save end
 
-        // Upadate the client's points and the client's sold books
-        
+        // Update the client's points and the client's sold books
         Client.findOne({ username: req.body.provider }, function (err, client) {
             if (err) { res.status(500).json(err); }
             else {
@@ -1042,9 +1047,8 @@ exports.backoffice_admin_usedbook_create_post = function (req, res) {
                 client.save(function (err) { if (err) { return err; } });
             }
         });
-        
 
-        res.redirect('/backoffice/admin/usedbook');
+        res.redirect('/backoffice/admin/proposals');
     }
     }); // Promise end
 }; // Create a new Usedbook

@@ -9,7 +9,6 @@ import { Sale } from '../../Models/Sale';
 
 //#region Constants
 const api = 'https://localhost:3000/clientapi';
-const baseURl = 'http://localhost/';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -87,10 +86,9 @@ export class RestService {
     return this.http.post(api + '/updatePassword', formParams);
   }
 
-  sellBook(tempBookModel: TempBook, selectedFile: any) {
+  sellBook(formParams: FormData) {
     // url: https://localhost/clientapi/sellbook
-    return this.http.post(api + '/sellbook', { tempBookModel, selectedFile });
-
+    return this.http.post(api + '/sellbook', formParams);
   }
 
   checkout(formParams: FormData) {

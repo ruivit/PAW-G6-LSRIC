@@ -181,7 +181,9 @@ exports.client_register_post = async function (req, res) {
         var pointsGained = pointsData.recomendationClient;
 
         // If the client was recommended by an existing client
-        var recommendedClient = await Client.findOne({ email: req.body.recommendation });
+        console.log(req.body);
+        var recommendedClient = await Client.findOne(
+            { email: req.body.recommendedBy });
         if (recommendedClient) {
             
             recommendedClient.points += pointsGained;
@@ -243,10 +245,9 @@ exports.client_login_post = async function (req, res) {
 
     // send email to client with the title of the last 3 books added
         
-    /* setTimeout(function () {
+    setTimeout(function () {
         sendMailClientLogin(titles, client);
-    }, 2000);
-     */// 
+    }, 2000); 
 
 }; // Login process for clients
 
@@ -390,25 +391,16 @@ exports.client_make_sale_post = async function (req, res) {
 exports.client_sell_tempbook_post = function (req, res) {
 
     var tempBook = new TempBook({
-        title: req.body.tempBookModel.title,
-        author: req.body.tempBookModel.author,
-        genre: req.body.tempBookModel.genre,
-        editor: req.body.tempBookModel.editor,
-        resume: req.body.tempBookModel.resume,
-        isbn: req.body.tempBookModel.isbn,
-        dateAdded: req.body.tempBookModel.dateAdded,
-        dateString: req.body.tempBookModel.dateString,
-        provider: req.body.tempBookModel.provider,
-        sellPrice: req.body.tempBookModel.sellPrice,
-    });
-
-    tempBook.save(function (err) {
-        if (err) {
-            console.log(err);
-            res.status(500).json(err);
-        } else {
-            res.status(201).json({ msg: 'TempBook Successfull!' });
-        }
+        title: req.body.title,
+        author: req.body.author,
+        genre: req.body.genre,
+        editor: req.body.editor,
+        resume: req.body.resume,
+        isbn: req.body.isbn,
+        dateAdded: req.body.dateAdded,
+        dateString: req.body.dateString,
+        provider: req.body.provider,
+        sellPrice: req.body.sellPrice,
     });
 
     // Save the Image
@@ -416,6 +408,16 @@ exports.client_sell_tempbook_post = function (req, res) {
         fs.writeFileSync("./public/images/books/" + 
         tempBook._id + ".jpg", req.file.buffer);
     }
+
+    tempBook.save(function (err) {
+        if (err) {
+            res.status(500).json({ msg: err });
+        } else {
+            res.status(201).json({ msg: 'TempBook Successfull!' });
+        }
+    });
+
+    
      
     // Send the email to the administrador that there is a new proposal
     sendMailClient(tempBook);
